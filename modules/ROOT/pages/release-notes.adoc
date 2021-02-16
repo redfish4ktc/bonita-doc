@@ -2,8 +2,7 @@
 
 == New values added
 
-+++<a id="improve-form-generation">++++++</a>+++
-
+[#improve-form-generation]
 === Low code application development: business data management from the Studio to the UI Designer
 
 ==== Easily create forms where business variables or documents are edited by the users (read/write)
@@ -53,8 +52,7 @@ This is different from Bonita Portal Task List where the user needs to click on 
 
 === Continuous delivery of projects / Industrialization
 
-+++<a id="theme-in-project">++++++</a>+++
-
+[#theme-in-project]
 ==== "Theme" projects are now integrated in Bonita project (Subscription only)
 
 From the Studio, the theme can now be created as any other part of a Living Application, from the Development Menu and from the Project Explorer "New" option.
@@ -98,8 +96,7 @@ It offers the same features than the old Portal page:
 * An Export button to download the .xml locally and share it
 Additionally, it offers better validation (checks for any error in the file format with a dedicated error message).
 
-+++<a id="new-bonita-layout">++++++</a>+++
-
+[#new-bonita-layout]
 ==== A new Bonita Layout
 
 Created with the UI Designer, it is responsive, it can be customized and added to any living application.
@@ -127,8 +124,8 @@ To use it, it needs to be enabled in the studio Preferences or in the bundle con
 
 A work execution audit mechanism has been introduced. It can be activated to detect when a work takes too much time to be executed or it was _rescheduled_ too many times.
 See xref:work-execution-audit.adoc[Work execution audit page].
-+++<a id="asynchronous-connector-execution">++++++</a>+++
 
+[#asynchronous-connector-execution]
 ==== Asynchronous connector execution
 
 The Bonita Runtime is now up to 10x more performant in a context of slow connectors, allowing more tasks to be executed and avoiding and SPOC (single point of contention).
@@ -177,8 +174,7 @@ Within Tomcat and WildFly bundles, the License Request Key generator tool has be
 
 == Technical updates
 
-+++<a id="java-11-compliance">++++++</a>+++
-
+[#java-11-compliance]
 === Java 11 Compliance
 
 Bonita now runs on Java 8 and Java 11. It is still compiled with java 8, but can now run on Java 11. +
