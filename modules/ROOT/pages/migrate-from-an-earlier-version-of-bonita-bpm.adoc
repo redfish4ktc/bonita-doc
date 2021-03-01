@@ -42,9 +42,9 @@ The version targeted may not support the version of the database that is being m
 
 * Please check the xref:hardware-and-software-requirements.adoc[database requirements].
 * If you need to upgrade your database:
- ** Please make sure to apply all the xref:database-configuration.adoc]#specific_database_configuration[RDBMS customisations required by Bonita] when setting up the new version.
- ** Please make sure to use the xref:database-configuration.adoc]#proprietary_jdbc_drivers[appropriate JDBC driver]
- ** WARNING: *Oracle database* requires to use the official driver for each specific version. Make sure your driver's checksum matches the Oracle official one for your xref:database-configuration.adoc]#proprietary_jdbc_drivers[database version]
+** Please make sure to apply all the xref:database-configuration.adoc]#specific_database_configuration[RDBMS customisations required by Bonita] when setting up the new version.
+** Please make sure to use the xref:database-configuration.adoc]#proprietary_jdbc_drivers[appropriate JDBC driver]
+** WARNING: *Oracle database* requires to use the official driver for each specific version. Make sure your driver's checksum matches the Oracle official one for your xref:database-configuration.adoc]#proprietary_jdbc_drivers[database version]
 ====
 
 *Community/Subscription edition:*
@@ -153,7 +153,7 @@ document: 7476
 This section explains how to migrate a platform that uses one of the Bonita bundles.
 
 . Download the target version bundle and the migration tool for your Edition from the
- http://www.bonitasoft.com/downloads-v2[Bonitasoft site] for Bonita Community edition
+http://www.bonitasoft.com/downloads-v2[Bonitasoft site] for Bonita Community edition
 or from the  https://customer.bonitasoft.com/download/request[Customer Portal] for Bonita Subscription Pack editions.
 . Check your current RDBMS version is compliant with the versions supported by the target version of Bonita (see  <<rdbms_requirements,above>>)
 . Unzip the migration tool zip file into a directory. In the steps below, this directory is called `bonita-migration`.
@@ -195,116 +195,114 @@ Specify the following information:
 ====
 
 Note: If you are using MySQL, add `?allowMultiQueries=true` to the URL. For example,
-   `db.url=jdbc:mysql://localhost:3306/bonita_migration?allowMultiQueries=true`. +
-   Also, if you are migrating to Bonita 7.9+, you must upgrade your database server to MySQL 8.0, see <<mysql8,Migrating to Bonita 7.9+ using MySQL>> specific procedure below.
+`db.url=jdbc:mysql://localhost:3306/bonita_migration?allowMultiQueries=true`. +
+Also, if you are migrating to Bonita 7.9+, you must upgrade your database server to MySQL 8.0, see <<mysql8,Migrating to Bonita 7.9+ using MySQL>> specific procedure below.
 ====
 
+. If you use a custom Look & Feel,  xref:managing-look-feel.adoc[export] it, and then  xref:managing-look-feel.adoc[restore the default Look & Feel].
+. If you use a Business data model that requires to be redeployed (see  <<bdm_redeploy,above>>), you can pause the tenant so that as a tenant admin, you'll be able to redeploy the BDM on a paused tenant once migration is done.
+. Stop the application server.
+. *IMPORTANT:*
+xref:back-up-bonita-bpm-platform.adoc[Back up your platform] and database in case of problems during migration.
+. Go to the directory containing the migration tool.
+. Run the migration script:
+** For version 1.x of the migration tool, run `migration.sh` (or `migration.bat` for Windows).
+** For version 2.x of the migration tool, go to the `bin` directory and run the migration script for your edition and operating system:
++
+|===
+|  |
+
+| Community edition
+| `bonita-migration-distrib` (Linux) or `bonita-migration-distrib.bat` (Windows)
+
+| Subscription editions
+| `bonita-migration-distrib-sp` (Linux) or `bonita-migration-distrib-sp.bat` (Windows)
+|===
+
+** Starting from version 2.44.1, an additional script called `check-migration-dryrun` is present in the same folder. This script only run checks the migration would without actually migrating. This is equivalent to running the migration script with a `--verify` option.
+. The script detects the current version of Bonita, and displays a list of the versions that you can migrate to. Specify the
+version you require.
+The script starts the migration.
+. As the script runs, it displays messages indicating progress. After each migration step, you are asked to confirm whether to
+proceed to the next step. You can pause the migration by answering `no`.
+To suppress the confirmation questions, so that the migration can run unattended, set the ` (-Dauto.accept=true)`` system
+property.
+When the migration script is finished, a message is displayed showing the new platform version, and the time taken for the migration.
+The ``bonita_home` and the database have been migrated.
+. Unzip the target bundle version into a directory. In the steps below, this directory is called `bonita-target-version`.
+. xref:database-configuration.adoc[Configure the bundle to use the migrated database].
+
+ Do not recreate the database and use the setup tool of the `bonita-target-version` Edit the `bonita-target-version/setup/database.properties` file to point to the  migrated database.
+
+. Reapply configuration made to the platform, using the setup tool of the `bonita-target-version`
++
+Download the configuration from database to the local disk.
++
+There is below a Linux example:
++
+[source,bash]
+----
+cd setup
+./setup.sh pull
+----
++
+You must reapply the configuration that had been done on the original instance's BONITA_HOME into the `bonita-target-version/setup/platform_conf/current`    ````
++
+Please refer to the guide on updating the configuration file using the  xref:BonitaBPM_platform_setup.adoc]#update_platform_conf[platform setup tool]
++
+When done, push the updated configuration into the database:
++
+[source,bash]
+----
+./setup.sh push
 ----
 
-7. If you use a custom Look & Feel,  [export](managing-look-feel.md) it, and then  [restore the default Look & Feel](managing-look-feel.md).
+. If you have done specific configuration and customization in your server original version, re-do it by configuring the application server at `bonita-target-version/server` (or `bonita-target-version` if target version is 7.3.n): customization, libs etc.
+. *If your Bonita version is 7.4 or above before migrating, you can skip this point.* +++<a id="compound-permission-migration">++++++</a>+++
+In the case where deployed resources have required dedicated  xref:resource-management.adoc]#permissions[authorizations to use the REST API], these authorizations are not automatically migrated.
+Some manual operations have to be done on files that are  located in the extracted `platform_conf/current` folder (see  xref:BonitaBPM_platform_setup.adoc]#update_platform_conf[Update Bonita Platform configuration] for more information). You need to:
+** Perform a diff between the version before migration and the version after migration of `tenants/[TENANT_ID]/conf/compound-permissions-mapping.properties` and put the additional lines into the file `tenants/[TENANT_ID]/conf/compound-permissions-mapping-custom.properties`
+** Perform a diff between the version before migration and the version after migration of `tenants/[TENANT_ID]/conf/resources-permissions-mapping.properties` and put the additional lines into the file `tenants/[TENANT_ID]/conf/resources-permissions-mapping-custom.properties`
+** Perform a diff between the version before migration and the version after migration of `tenants/[TENANT_ID]/conf/dynamic-permissions-checks.properties` and put the additional lines into the file `tenants/[TENANT_ID]/conf/dynamic-permissions-checks-custom.properties`
+** Report all the content of the version before migration of``tenants/[TENANT_ID]/conf/custom-permissions-mapping.properties`` into the new version.
+. Configure License:
++
+you need to put a new license in the database: see  xref:BonitaBPM_platform_setup.adoc]#update_platform_conf[Platform configuration] for further details.
+There is below a Linux example:
++
+[source,bash]
+----
+cd setup
+vi database.properties
+./setup.sh pull
+ls -l ./platform_conf/licenses/
+----
++
+If there is no valid license in the `./platform_conf/licenses/`, these 2 pages will help you to request and install a new one:
 
-8. If you use a Business data model that requires to be redeployed (see  [above](#bdm_redeploy)), you can pause the tenant so that as a tenant admin, you'll be able to redeploy the BDM on a paused tenant once migration is done.
+** https://documentation.bonitasoft.com/?page=licenses[Licenses]
+** xref:BonitaBPM_platform_setup.adoc]#update_platform_conf[Platform configuration]
 
-9. Stop the application server.
++
+Install the new license:
++
+[source,bash]
+----
+cp BonitaSubscription-7.n-Jerome-myHosname-20171023-20180122.lic ./platform_conf/licenses/
+./setup.sh push
+----
 
-10. **IMPORTANT:**
-     [Back up your platform](back-up-bonita-bpm-platform.md) and database in case of problems during migration.
-
-11. Go to the directory containing the migration tool.
-
-12. Run the migration script:
-
-    - For version 1.x of the migration tool, run `migration.sh` (or `migration.bat` for Windows).
-    - For version 2.x of the migration tool, go to the `bin` directory and run the migration script for your edition and operating system:
-
-      |                       |                                                                                      |
-      | :-------------------- | :----------------------------------------------------------------------------------- |
-      | Community edition     | `bonita-migration-distrib` (Linux) or `bonita-migration-distrib.bat` (Windows)       |
-      | Subscription editions | `bonita-migration-distrib-sp` (Linux) or `bonita-migration-distrib-sp.bat` (Windows) |
-    - Starting from version 2.44.1, an additional script called `check-migration-dryrun` is present in the same folder. This script only run checks the migration would without actually migrating. This is equivalent to running the migration script with a `--verify` option.
-
-13. The script detects the current version of Bonita, and displays a list of the versions that you can migrate to. Specify the
-    version you require.
-    The script starts the migration.
-
-14. As the script runs, it displays messages indicating progress. After each migration step, you are asked to confirm whether to
-    proceed to the next step. You can pause the migration by answering `no`.
-    To suppress the confirmation questions, so that the migration can run unattended, set the ` (-Dauto.accept=true)` system
-    property.
-    When the migration script is finished, a message is displayed showing the new platform version, and the time taken for the migration.
-    The `bonita_home` and the database have been migrated.
-
-15. Unzip the target bundle version into a directory. In the steps below, this directory is called `bonita-target-version`.
-
-16.  [Configure the bundle to use the migrated database](database-configuration.md).
-
-    Do not recreate the database and use the setup tool of the `bonita-target-version` Edit the `bonita-target-version/setup/database.properties` file to point to the  migrated database.
-
-17. Reapply configuration made to the platform, using the setup tool of the `bonita-target-version`
-
-    Download the configuration from database to the local disk.
-
-    There is below a Linux example:
-    ```bash
-    cd setup
-    ./setup.sh pull
-    ```
-
-    You must reapply the configuration that had been done on the original instance's BONITA_HOME into the `bonita-target-version/setup/platform_conf/current`    ````
-
-    Please refer to the guide on updating the configuration file using the  [platform setup tool](BonitaBPM_platform_setup.md#update_platform_conf)
-
-    When done, push the updated configuration into the database:
-    ```bash
-    ./setup.sh push
-    ```
-
-18. If you have done specific configuration and customization in your server original version, re-do it by configuring the application server at `bonita-target-version/server` (or `bonita-target-version` if target version is 7.3.n): customization, libs etc.
-
-19. **If your Bonita version is 7.4 or above before migrating, you can skip this point.** <a id="compound-permission-migration" />
-    In the case where deployed resources have required dedicated  [authorizations to use the REST API](resource-management.md#permissions), these authorizations are not automatically migrated.
-    Some manual operations have to be done on files that are  located in the extracted `platform_conf/current` folder (see  [Update Bonita Platform configuration](BonitaBPM_platform_setup.md#update_platform_conf) for more information). You need to:
-    * Perform a diff between the version before migration and the version after migration of `tenants/[TENANT_ID]/conf/compound-permissions-mapping.properties` and put the additional lines into the file `tenants/[TENANT_ID]/conf/compound-permissions-mapping-custom.properties`
-    * Perform a diff between the version before migration and the version after migration of `tenants/[TENANT_ID]/conf/resources-permissions-mapping.properties` and put the additional lines into the file `tenants/[TENANT_ID]/conf/resources-permissions-mapping-custom.properties`
-    * Perform a diff between the version before migration and the version after migration of `tenants/[TENANT_ID]/conf/dynamic-permissions-checks.properties` and put the additional lines into the file `tenants/[TENANT_ID]/conf/dynamic-permissions-checks-custom.properties`
-    * Report all the content of the version before migration of`tenants/[TENANT_ID]/conf/custom-permissions-mapping.properties` into the new version.
-
-20. Configure License:
-
-    you need to put a new license in the database: see  [Platform configuration](BonitaBPM_platform_setup.md#update_platform_conf) for further details.
-    There is below a Linux example:
-
-    ```bash
-    cd setup
-    vi database.properties
-    ./setup.sh pull
-    ls -l ./platform_conf/licenses/
-    ```
-
-    If there is no valid license in the `./platform_conf/licenses/`, these 2 pages will help you to request and install a new one:
-
-    - [Licenses](https://documentation.bonitasoft.com/?page=licenses)
-    - [Platform configuration](BonitaBPM_platform_setup.md#update_platform_conf)
-
-    Install the new license:
-
-    ```bash
-    cp BonitaSubscription-7.n-Jerome-myHosname-20171023-20180122.lic ./platform_conf/licenses/
-    ./setup.sh push
-    ```
-
-21. Start the application server. Before you start Bonita Portal, clear your browser cache. If you do not clear the cache, you might see old, cached versions of Portal pages instead of the new version.
-    Log in to the Portal and verify that the migration has completed.
-    If you did not set the default Look & Feel before migration and you cannot log in, you need to  [restore the default Look & Feel](managing-look-feel.md) using a REST client or the Engine API.
-
-22. **If you migrated pasted version 7.7**
-    In that case, if you used the migration tool 2.41.1 or greater, the table `arch_contract_data` is automatically backed up to the table `arch_contract_data_backup` to avoid long lasting migration.
-    To reintegrate the data into your installation, a new tool is provided in versions 2.46.0 and above. It is located in the `tools/live-migration` folder.
-    Follow instruction in the README.md to run this tool and re-integrate data from `arch_contract_data_backup`.
+. Start the application server. Before you start Bonita Portal, clear your browser cache. If you do not clear the cache, you might see old, cached versions of Portal pages instead of the new version.
+Log in to the Portal and verify that the migration has completed.
+If you did not set the default Look & Feel before migration and you cannot log in, you need to  xref:managing-look-feel.adoc[restore the default Look & Feel] using a REST client or the Engine API.
+. *If you migrated pasted version 7.7*
+In that case, if you used the migration tool 2.41.1 or greater, the table `arch_contract_data` is automatically backed up to the table `arch_contract_data_backup` to avoid long lasting migration.
+To reintegrate the data into your installation, a new tool is provided in versions 2.46.0 and above. It is located in the `tools/live-migration` folder.
+Follow instruction in the README.md to run this tool and re-integrate data from `arch_contract_data_backup`.
 
 The migration is now complete. If you were using a custom Look & Feel before migration, test it on the new version before applying it to your migrated platform.
 
-## Migration of processes with 6.x forms and case overview pages
+== Migration of processes with 6.x forms and case overview pages
 
 Until the version 7.0.0, Bonita used UI artifacts based on the Google Web Toolkit (GWT) technology: process instantiation, task execution forms and case overview page.
 The runtime support for those forms and pages was removed in 7.8.0.
@@ -313,19 +311,19 @@ It means that if one or more processes on the migrated server uses 6.x forms or 
 
 Specifically if you are migrating from a 6.x version:
 
-- Migrate to the 7.0.0 using the migration tool 1.x.
-- Migrate to the last 7.7.x version, using the migration tool 2.x.
-- Redesign your process to use contracts at process instantiation and task execution levels, and recreate all your forms and case overview pages in the Studio using the UI Designer or your favorite IDE, so that they use  [contracts](contracts-and-contexts.md). For more information, go to  [migrate a form from 6.x](migrate-a-form-from-6-x.md)
-- Upload the new version of all your processes using contracts, new forms, and new case overview pages.
-- Make sure the versions of the processes using 6.x forms have no more running instances, and disable them.
-- Perform the migration to the desired version.
+* Migrate to the 7.0.0 using the migration tool 1.x.
+* Migrate to the last 7.7.x version, using the migration tool 2.x.
+* Redesign your process to use contracts at process instantiation and task execution levels, and recreate all your forms and case overview pages in the Studio using the UI Designer or your favorite IDE, so that they use  xref:contracts-and-contexts.adoc[contracts]. For more information, go to  xref:migrate-a-form-from-6-x.adoc[migrate a form from 6.x]
+* Upload the new version of all your processes using contracts, new forms, and new case overview pages.
+* Make sure the versions of the processes using 6.x forms have no more running instances, and disable them.
+* Perform the migration to the desired version.
 
 If you are migrating from a 7.x version:
 
-- Redesign all your forms in the Studio using the UI designer. See  [here](migrate-a-form-from-6-x.md) for more info.
-- Upload the new version of all your processes using the new forms.
-- Disable the version of your processes using 6.x forms. Make sure they have no more running instances.
-- Perform the migration to the desired version.
+* Redesign all your forms in the Studio using the UI designer. See  xref:migrate-a-form-from-6-x.adoc[here] for more info.
+* Upload the new version of all your processes using the new forms.
+* Disable the version of your processes using 6.x forms. Make sure they have no more running instances.
+* Perform the migration to the desired version.
 
 The disabled processes with 6.x forms will not be able to be enabled again post migration.
 Having 6.x case overview pages on your processes will not prevent the migration of the platform,
@@ -340,23 +338,24 @@ you can live update it after migration.
 Note: 6.x application resources have been removed too in 7.8.0, so if you are migrating a process that leverage this feature, you need to modify it (for example to use process dependencies instead (Configure > Process dependencies in Bonita Studio)).
 ====
 
-<a id="update-case-overview-pages" />
+[#update-case-overview-pages]
 
-## Use the provided Bonita tool to update case overview pages before migrating to 7.8.0
+== Use the provided Bonita tool to update case overview pages before migrating to 7.8.0
 
 Bonita Migration Tool now ships an option to allow you to replace 6.x case overview pages with the default 7.x case overview page
 (created with the UI Designer), when your Bonita runtime is still in a pre-7.8.0 version. This allows you to see if the page suits your needs, or if not,
 it can be used as a base to customize your case overview page. Your pages will then be ready for the 7.8.0 migration step.
 
-To run it, unzip the latest Migration Tool and run, for **Community** edition:
+To run it, unzip the latest Migration Tool and run, for *Community* edition: +
 `./bonita-migration-distrib` (Linux) or `bonita-migration-distrib.bat` (Windows) `--updateCaseOverview <PROCESS_DEFINITION_ID>`
 
-or for **Subscription** edition:
+or for *Subscription* edition: +
 `./bonita-migration-distrib-sp` (Linux) or `bonita-migration-distrib-sp.bat` (Windows) `--updateCaseOverview <PROCESS_DEFINITION_ID>`
 
 For instance:
 
-```bash
+[source,bash]
+----
 ./bonita-migration-distrib-sp --updateCaseOverview 6437638294854549375
 ----
 
@@ -434,8 +433,8 @@ please follow this procedure:
 A Bonita cluster must have the same version of Bonita on all nodes. To migrate a cluster:
 
 . Download the migration tool:
- ** In version 1.x you need to download the tool for Performance cluster, the ordinary Performance migration tool does not support migration of a cluster.
- ** In version 2.x there is only one kind of migration tool. It will work for both cluster and non cluster installation.
+** In version 1.x you need to download the tool for Performance cluster, the ordinary Performance migration tool does not support migration of a cluster.
+** In version 2.x there is only one kind of migration tool. It will work for both cluster and non cluster installation.
 . Shutdown all cluster nodes.
 . On one node, follow the procedure above to migrate the platform.
 . When the migration is complete on one node, follow steps 12 to 16 on all the other nodes.
