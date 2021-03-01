@@ -1,4 +1,5 @@
 = Run a process in Bonita Studio
+:description: You can run a process from Bonita Studio. Bonita Studio includes a test environment with all the components required to execute a process.
 
 You can run a process from Bonita Studio. Bonita Studio includes a test environment with all the components required to execute a process.
 
@@ -24,7 +25,7 @@ This means that if you include a script in the templates, which are the standalo
 To include a script in a process so it can be used in portal mode, there are the following options:
 
 * In the form, add an HTML widget that contains ``.
-* In the Portal, use a xref:managing-look-feel.adoc[custom Look & Feel] that includes the JavaScript files between the `` tags of `BonitaForm.html`.
+* In the Portal, use a xref:managing-look-feel.adoc[custom Look & Feel] that includes the JavaScript files between the ```tags of``BonitaForm.html`.
 This makes the script available for all forms in all processes launched from the Portal.
 
 To include a script in a process so it can be used in standalone mode:

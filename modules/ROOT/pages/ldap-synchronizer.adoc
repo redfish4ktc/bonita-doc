@@ -1,10 +1,13 @@
 = LDAP synchronizer
+:description: Learn how to configure the LDAP Synchronizer. This tool updates Bonita Users and Groups database from the LDAP directory.
 
 Learn how to configure the LDAP Synchronizer. This tool updates Bonita Users and Groups database from the LDAP directory.
 
-NOTE:
-*Note:* For Enterprise, Performance, Efficiency, and Teamwork editions only.
+[NOTE]
+====
 
+For Enterprise, Performance, Efficiency, and Teamwork editions only.
+====
 
 The LDAP synchronization service keeps the Bonita organization information synchronized with an external LDAP directory, by creating, updating, or removing
 users and groups in the organization
@@ -44,6 +47,7 @@ Set the API access mode used by the LDAP Synchronizer, by editing the `<LDAP_SYN
 
 Add between `java` and `-classpath`:
 
+[source,bash]
 ----
 -Dorg.bonitasoft.engine.api-type=HTTP -Dorg.bonitasoft.engine.api-type.server.url=http://localhost:8080 -Dorg.bonitasoft.engine.api-type.application.name=bonita
 ----
@@ -218,7 +222,7 @@ perso_city  +
 perso_zip_code  +
 perso_state  +
 perso_country
-| custom_<Custom User Information>
+| custom_\<Custom User Information>
 |===
 
 The following items are configured by default:
@@ -253,6 +257,7 @@ The following items are configured by default:
 The prefix ''custom_'' is used to map any 'Custom User Information'. For example, to map the 'Custom User Information' "skypeId" and "room"
 from LDAP property "skype" and "roomNumber", the syntax is:
 
+[source,properties]
 ----
 custom_skypeId = skype
 custom_room = roomNumber
@@ -290,8 +295,8 @@ The syntax for group object properties is detailed in a later section.
 different policy is detailed in a later section. +
 Default value: none
 * allow_custominfo_creation: define the strategy when a Custom User Information is detected
-in the mapper.properties configuration, and not exist in the Bonita database. If this
-property is true, then the Custom User Information is created. +
+  in the mapper.properties configuration, and not exist in the Bonita database. If this
+  property is true, then the Custom User Information is created. +
 Default value: false
 
 ==== Policy to synchronize the Custom User Information
@@ -305,6 +310,7 @@ All examples are based on
 . Two Custom User Information exist in the Bonita database : _badgeId_ and _room_
 . The mapper.properties contains
 
+[source,properties]
 ----
 custom_badgeId = ldapBadgeIdentification
 ----
@@ -313,6 +319,7 @@ The _room_ is not declared in the mapper.properties.
 
 * *none*:
 
+[source,properties]
 ----
 bonita_user_custominfo_policy = none
 ----
@@ -321,6 +328,7 @@ no 'Custom User Information' is synchronized.
 
 * *partial* :
 
+[source,properties]
 ----
 bonita_user_custominfo_policy = partial
 ----
@@ -343,6 +351,7 @@ A 'Custom User Information' not declared in mapper.properties will not be modifi
 
 * *scope*:
 
+[source,properties]
 ----
 bonita_user_custominfo_policy = scope
 ----
@@ -364,6 +373,7 @@ Same as partial, plus if the Ldap Object doesn't have a property, it will be set
 
 * *full*:
 
+[source,properties]
 ----
 bonita_user_custominfo_policy = full
 ----
@@ -403,6 +413,7 @@ Here are the available object properties:
 
 Example of a watched directory declaration:
 
+[source,properties]
 ----
 # Declare a list of LDAP watched directories
 ldap_watched_directories = dir1,dir2
@@ -459,6 +470,7 @@ optional Boolean attribute (true by default) that defines whether group members 
 
 Example of group declarations:
 
+[source,properties]
 ----
 # List of groups to synchronize
 ldap_groups = group1, group2
@@ -492,6 +504,7 @@ In combination or as an alternative, groups can be declared using the result of 
 
 Example of group searches:
 
+[source,properties]
 ----
 #Specify search of groups
 ldap_search_filter_groups  =  search1,search2
@@ -533,7 +546,7 @@ NOTE: Some use cases require additional configuration server side (for example t
 == Using the LDAP synchronizer in a non-default tenant
 
 *Installation:* The LDAP Synchronizer is installed on the platform as described above.
-After installation, Check that the xref:profiles-overview.adoc["User" profile] is defined for the tenant.
+After installation, Check that the  xref:profiles-overview.adoc["User" profile] is defined for the tenant.
 The default tenant has a "User" profile by default, but it must be created manually when a tenant is created.
 The LDAP synchronizer will fail if this profile is not defined.
 

@@ -1,4 +1,5 @@
 = Platform API
+:description: The Platform REST API allows to manage Bonita Platform and platform level resources.
 
 The Platform REST API allows to manage Bonita Platform and platform level resources.
 
@@ -14,7 +15,7 @@ In order to get one, log in as the platform administrator using the platform log
 * *Success Response*
  ** *Code*: 200
  ** *Request parameters*:
-+
+
 ----
 username=platformAdmin
 password=platform
@@ -277,7 +278,7 @@ A tenant can only be deleted if it is in DEACTIVATED state.
 * *Success Response*
  ** *Code*: 200
 
-+++<a id="license">++++++</a>+++
+[#license]
 
 == License
 

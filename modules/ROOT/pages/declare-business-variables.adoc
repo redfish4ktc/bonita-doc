@@ -1,4 +1,6 @@
 = Declare business variables
+:description: :experimental:
+
 :experimental:
 
 In order for your process to be able to perform operations on business data such as the classical create, read, update and delete operations, you need to include business variables in your process definition.
@@ -25,11 +27,15 @@ Now that a business variable is declared, we can use it in our transition condit
 +
 image::images/getting-started-tutorial/declare-business-variable/define-condition.gif[Define transition condition using business variable value]
 
-NOTE:
+[NOTE]
+====
+
 The script configured for the transition condition will return `true` if satisfaction level given is lower than 3, as the transition to _Deal with unsatisfied customer_ will be activated.
+====
 
+[NOTE]
+====
 
-NOTE:
 Our business variable is never initialized so it will remain empty. They are several different options available to initialize a business variable:
 
 * business variable default value
@@ -37,7 +43,7 @@ Our business variable is never initialized so it will remain empty. They are sev
 * connector output
 
 We will use the first and second options in the upcoming chapters.
-
+====
 
 At this stage of the process definition, if you try to execute it, you will not see any difference in the process instantiation form and user task forms. Only the process overview form is different, now listing the business variable but with no associated value.
 

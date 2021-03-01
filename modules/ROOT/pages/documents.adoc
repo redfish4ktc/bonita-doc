@@ -1,4 +1,5 @@
 = Documents
+:description: Some processes require documents to provide supplementary information, or to manipulate business information. +
 
 Some processes require documents to provide supplementary information, or to manipulate business information. +
 Users can download it.
@@ -93,7 +94,7 @@ The table below shows the possible interactions between each storage option and 
 
 For most use cases, we recommend storing documents in a CMS.
 
-+++<a id="cms">++++++</a>+++
+[#cms]
 
 [discrete]
 ==== CMS
@@ -107,14 +108,14 @@ For example, the content might be updated by some other applications after you h
 
 For example, in a process to approve a document for publication, the document exists in an external file store or CMS before the process is instantiated. At a step in the process, the document is approved for external publication, and a new revision of the file is created with a "Confidential" watermark removed. This new revision is uploaded to the CMS by connector, and continues to exist after the process instance is completed and archived.
 
-+++<a id="file">++++++</a>+++
+[#file]
 
 [discrete]
 ==== File
 
 A document that is stored as a file can be used to initialize or update the document object in a process instance. This is done when the user specifies the file in a form. Typically, this is useful for information that does not have to be stored outside the process, where the file can be deleted after the document object is created. For example, a file containing a scanned copy of a travel receipt does not need to be kept after the receipt object has been added to a travel expense claim process instance.
 
-+++<a id="resource">++++++</a>+++
+[#resource]
 
 [discrete]
 ==== Resource
@@ -173,13 +174,12 @@ To define a document in Bonita Studio:
  ** A *description* of the document. This is optional, but we recommend that you add a description stating the document purpose in the process, for collaboration and maintenance.
  ** Whether the document is *single* or *multiple*. Specify *multiple* to define a document list.
  ** The source of the *initial content* of the document. For a document, there are the following options:
-
- ** Choose *None* if there is no initial content for the document when the process instance is created.
- ** Choose *From contract* if the document content is to be retrieved from the contract input.
- ** Choose *From local file* if the document content is to be retrieved from a resource.
- ** Choose *From an external system* if the document content is to be retrieved from an external system by URL
-For a document list, initial content is defined using a script. The script must return a `java.util.List`.
-      * Optionally, for a local file, you can specify the media type of the content, by setting the MIME type of the document.
+  *** Choose *None* if there is no initial content for the document when the process instance is created.
+  *** Choose *From contract* if the document content is to be retrieved from the contract input.
+  *** Choose *From local file* if the document content is to be retrieved from a resource.
+  *** Choose *From an external system* if the document content is to be retrieved from an external system by URL
+ For a document list, initial content is defined using a script. The script must return a `java.util.List`.
+ ** Optionally, for a local file, you can specify the media type of the content, by setting the MIME type of the document.
 . If you want to specify the MIME type, click *Manage MIME type...*, and then specify the MIME type in the field that is displayed.
 . When you have provided all the information for the document, click either *_Finish & Add_* to define another document or *_Finish_* if you have no more documents to define for this pool.
 
@@ -213,9 +213,9 @@ Set the default value of docId with the following code: `apiAccessor.getProcessA
 . Define the xref:called-processes.adoc[variable mapping in the call activity] so that docId in the call activity is mapped to docId in the called process.
 . In the called process, as the first task add an automatic task that will get the mainDoc, create a DocumentValue object with the content of mainDoc, and use it to update the content of subDoc. +
 To do this, define an operation in the automatic task as follows:
- .. In the first field, select subDoc.
- .. Set the operator type to Set document.
- .. Open the expression editor for the second field and create a script expression with the following content:
+ ** In the first field, select subDoc.
+ ** Set the operator type to Set document.
+ ** Open the expression editor for the second field and create a script expression with the following content:
 
 [source,groovy]
 ----

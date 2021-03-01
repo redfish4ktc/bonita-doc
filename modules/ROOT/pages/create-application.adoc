@@ -1,4 +1,5 @@
 = Create an application
+:description: Creating the application is the final step of this Getting Started tutorial.
 
 Creating the application is the final step of this Getting Started tutorial.
 

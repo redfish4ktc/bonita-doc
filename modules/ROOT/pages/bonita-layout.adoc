@@ -1,8 +1,11 @@
 = Bonita Layout
+:description: [NOTE]
 
-NOTE:
-*Note:* For Enterprise, Performance, Efficiency, and Teamwork editions only.
+[NOTE]
+====
 
+For Enterprise, Performance, Efficiency, and Teamwork editions only.
+====
 
 This layout has different desktop and mobile versions.
 
@@ -32,4 +35,4 @@ property of the image widget.
 === Font awesome
 
 This layout requires a theme containing the font-awesome library.
-If you are using a custom theme, make sure link:themes.md#font-awesome[font-awesome is available in your theme].
+If you are using a custom theme, make sure xref:themes.adoc]#font-awesome[font-awesome is available in your theme].

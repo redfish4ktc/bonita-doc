@@ -1,4 +1,5 @@
 = Tenant API
+:description: == BDM
 
 == BDM
 
@@ -29,18 +30,20 @@ Make this call to get the status the BDM.
 [source,json]
 ----
 {
-  "id": "309",
-  "name": "client_bdm.zip",
-  "type": "BDM",
-  "state": "INSTALLED",
-  "lastUpdatedBy": "-1 ",
-  "lastUpdateDate": "2018-01-17T17:05:36.671Z"
+      "id": "309",
+      "name": "client_bdm.zip",
+      "type": "BDM",
+      "state": "INSTALLED",
+      "lastUpdatedBy": "-1 ",
+      "lastUpdateDate": "2018-01-17T17:05:36.671Z"
 }
 ----
 +
-NOTE:
- *Note:* `lastUpdatedBy"` value is always -1 because only the tenant_technical_user can install BDM.
- 
+[NOTE]
+====
+
+`lastUpdatedBy"` value is always -1 because only the tenant_technical_user can install BDM.
+====
 
 [discrete]
 ==== Install or update a BDM
@@ -50,9 +53,11 @@ Need to be done in two successive steps: +
 1 - Upload a BDM file +
 2 - Install/Update the previously uploaded file
 
-WARNING:
- *Note:* To do this, your tenant services need to be paused.
- 
+[WARNING]
+====
+
+*Note:* To do this, your tenant services need to be paused.
+====
 
 [discrete]
 ===== Upload a BDM file
@@ -68,7 +73,7 @@ WARNING:
  ** Request Payload
 +
 ----
- tmp_uploaded_bdm.zip
+tmp_uploaded_bdm.zip
 ----
 
 [discrete]
@@ -82,16 +87,21 @@ WARNING:
  ** Code: 200
  ** Request Payload
 +
+[source,json]
 ----
- {
-  fileUpload: "tmp_uploaded_bdm.zip"
- }
+{
+     fileUpload: "tmp_uploaded_bdm.zip"
+}
 ----
 +
-NOTE:
- *Note:* Use the file name returned in the first step to perform the second step.
- 
+[NOTE]
+====
 
-WARNING:
- *Note:* In Efficiency, Performance and Enterprise editions, if you have an access control file installed on your tenant, you need to delete    it before installing or updating your BDM.
- 
+Use the file name returned in the first step to perform the second step.
+====
+
+[WARNING]
+====
+
+*Note:* In Efficiency, Performance and Enterprise editions, if you have an access control file installed on your tenant, you need to delete    it before installing or updating your BDM.
+====

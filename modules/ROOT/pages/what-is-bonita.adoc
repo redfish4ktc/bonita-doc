@@ -1,4 +1,5 @@
 = What is Bonita?
+:description: Welcome to this Bonita getting started tutorial. On this page you will find a quick overview of what you can do with Bonita and an introduction to the Bonita architecture.
 
 Welcome to this Bonita getting started tutorial. On this page you will find a quick overview of what you can do with Bonita and an introduction to the Bonita architecture.
 

@@ -1,10 +1,11 @@
 = REST API BPM API
+:description: Easily retrieve human or service tasks, call activities, and subprocesses with BPM APIs. Perform maintenance tasks.
 
 Easily retrieve human or service tasks, call activities, and subprocesses with BPM APIs. Perform maintenance tasks.
 
 == Activities and Tasks
 
-+++<a id="activity">++++++</a>+++
+[#activity]
 
 === Activity
 
@@ -85,11 +86,11 @@ The methods used for this resource are:
 * GET - Read an activity or search for an activity
 * PUT - Update an activity
 
-+++<a id="activity-deploy">++++++</a>+++
+[#activity-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * processId
 * caseId
@@ -124,9 +125,11 @@ NOTE: if there is no data with the specified name in the activity, the update wi
 
 ==== Update activity variables and execute a task
 
-NOTE:
-Note: if the task definition includes a connector that is executed on finish and updates the value of a variable, the value set by the REST API call is overwritten.
+[NOTE]
+====
 
+Note: if the task definition includes a connector that is executed on finish and updates the value of a variable, the value set by the REST API call is overwritten.
+====
 
 * *URL* +
 `/API/bpm/activity/:id`
@@ -202,7 +205,7 @@ The JSON representation of the specified activity
   "caseId": "76539",
   "parentCaseId": "68743",
   "rootCaseId": "65879",
-  "processId": "7012","
+  "processId": "7012",
   "rootContainerId": "7000",
   "state": "completed",
   "type": "the activity type as a string",
@@ -340,11 +343,11 @@ The methods used for this resource are:
 
 * GET - Read a resource or search for an archived activity
 
-+++<a id="archived-activity-deploy">++++++</a>+++
+[#archived-activity-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * processId: the id of the process that is associated with the activity
 * caseId: the id of the case that is associated with the activity
@@ -396,7 +399,7 @@ The following xref:rest-api-overview.adoc[search parameters] are available:
 An array of JSON representations of the specified activities
  ** *Code*: 200
 
-+++<a id="human-task">++++++</a>+++
+[#human-task]
 
 === HumanTask
 
@@ -448,11 +451,11 @@ The methods used for this resource are:
 * GET - Read a resource
 * PUT - Update a resource
 
-+++<a id="manual-task-deploy">++++++</a>+++
+[#manual-task-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * processId: the id of the process that is associated with the activity
 * caseId: the id of the case that is associated with the activity
@@ -513,7 +516,7 @@ _Example_: Get the human tasks that have been skipped. `/API/bpm/humanTask?p=0&c
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available:
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available:
  ** d: extend resource response parameters of <<human-task-deploy,this resource>> are available.
  ** o: name, priority, dueDate, state, processDefinitionId, processInstanceId,
 parentActivityInstanceId, assigneeId, parentContainerId, displayName, reachedStateDate
@@ -748,7 +751,7 @@ Use a GET method with filters and search terms to search for subtasks.
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 You can filter on:
  ** `+assigned_id={user_id}+`: retrieve only the manual tasks assigned to the specified user. For example, retrieve the manual tasks assigned to user with id 1: `/API/bpm/manualTask?p=0&c=10&f=assigned_id%3d1`.
  ** `state=skipped | ready | completed | failed` : retrieve only the manual tasks with the specified state. For example, retrieve the ready tasks: `/API/bpm/manualTask?p=0&c=10&f=state%3dready`.
@@ -809,11 +812,11 @@ The methods used for this resource are:
 * GET - Read a resource or search for a resource
 * PUT - Update a resource
 
-+++<a id="task-deploy">++++++</a>+++
+[#task-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * processId: the id of the process that is associated with the activity
 * caseId: the id of the case that is associated with the activity
@@ -885,7 +888,7 @@ Task fields to update (forbidden fields are : caseId, processId, name, executedB
 
 * *URL* +
 `/API/bpm/task` +
-_Example_: Get ten first tasks for process id 8410739119827826184 order by state `/API/bpm/task?c=10&p=0&f=processId=8410739119827826184&o=state`
+_Example_: Get ten first tasks for process id https://github.com/bonitasoft/bonita-doc/commit/8410739119827826184[`8410739`] order by state `/API/bpm/task?c=10&p=0&f=processId=8410739119827826184&o=state`
 * *Method* +
 `GET`
 * *Data Params*
@@ -996,11 +999,11 @@ The methods used for this resource are:
 * POST - Execute a task with contract
 * PUT - Update a userTask
 
-+++<a id="user-task-deploy">++++++</a>+++
+[#user-task-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * processId: the id of the process that is associated with the activity
 * caseId: the id of the case that is associated with the activity
@@ -1148,7 +1151,7 @@ Execute a task providing correct contract values.
 }
 ----
 
-+++<a id="retrieve-the-usertask-context">++++++</a>+++
+[#retrieve-the-usertask-context]
 
 ===== Retrieve the userTask context
 
@@ -1286,7 +1289,7 @@ _Example_: Get the human tasks assigned to the user with id 2. `/API/bpm/archive
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 You can filter on:
  ** `+assigned_id={user_id}+`: retrieve only the human tasks assigned to the specified ID. For example, retrieve the human tasks assigned to user with id 2: `/API/bpm/archivedHumanTask?p=0&c=10&f=assigned_id%3d2`
  ** `state=`: retrieve only the archived user tasks with the specified state. For example, retrieve the skipped tasks: `/API/bpm/archivedHumanTask?p=0&c=10&f=state=skipped`
@@ -1444,7 +1447,7 @@ Use a GET method with filters and search terms to search for subtasks.
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 You can filter on:
  ** `+assigned_id={user_id}+`: retrieve only the manual tasks assigned to the specified user. For example, retrieve the manual tasks assigned to user with id 1: `/API/bpm/archivedManualTask?p=0&c=10&f=assigned_id%3d10`
  ** {blank}
@@ -1514,11 +1517,11 @@ The methods used for this resource are:
 
 * GET - Read a resource or search for a resource
 
-+++<a id="archived-task-deploy">++++++</a>+++
+[#archived-task-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * processId: the id of the process that is associated with the activity
 * caseId: the id of the case that is associated with the activity
@@ -1574,11 +1577,11 @@ JSON representation of an archived task
 
 * *URL* +
 `/API/bpm/archivedTask` +
-_Example_: Search ten first archived task of process 8410739119827826184 order by name: `/API/bpm/archivedTask?c=10&p=0&f=processId=8410739119827826184&o=name`
+_Example_: Search ten first archived task of process https://github.com/bonitasoft/bonita-doc/commit/8410739119827826184[`8410739`] order by name: `/API/bpm/archivedTask?c=10&p=0&f=processId=8410739119827826184&o=name`
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
  ** Accepted sort values `+o={value}+` : caseId, name, displayName, processId, state, type, archivedDate, reached_state_date, assigned_id
  ** Accepted filters `+f={filter}=value+` : caseId, name, displayName, processId, state, type, archivedDate, reached_state_date, assigned_id, isTerminal
  ** d: extend resource response parameters of <<archived-task-deploy,this resource>> are available.
@@ -1688,11 +1691,11 @@ The methods used for this resource are:
 
 * GET - Retrieve an archivedUserTask, search for archivedUserTask objects
 
-+++<a id="archived-user-task-deploy">++++++</a>+++
+[#archived-user-task-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * processId: the id of the process that is associated with the activity
 * caseId: the id of the case that is associated with the activity
@@ -1753,7 +1756,7 @@ _Example_: Get the user tasks assigned to the user with id 2:``/API/bpm/archived
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
 +
 You can filter on:
 
@@ -1834,15 +1837,15 @@ The ID of the activity variable (a long value).
 {
   "tenantId": "The ID of the tenant where the current user is logged in (technical information)",
   "tenantId_string": "number (since 7.0.1)",
-  "id":_The identifier of the variable",
+  "id":"_The identifier of the variable",
   "id_string":"number (since 7.0.1)",
   "name": "The name of the activity variable",
   "description": "The description of the variable, if any",
   "transientData": "FALSE",  //Always false (boolean)
   "className": "The fully qualified class name of the variable type",
   "containerId": "The ID of the activity containing this variable (same as the one passed as parameter) if the variable is defined at activity level, or ID of the process instance if the variable is defined on the process",
-  "containerId_string": "number" (since 7.0.1)_,
-  "containerType": "ACTIVITY_INSTANCE" | "PROCESS_INSTANCE" _depending on whether the variable is defined at activity or process level.",
+  "containerId_string": "number" (since 7.0.1),
+  "containerType": "ACTIVITY_INSTANCE" | "PROCESS_INSTANCE" _depending on whether the variable is defined at activity or process level._,
   "value": "the value of this variable. The format of the value depends on the type of the variable"
 }
 ----
@@ -1906,7 +1909,7 @@ The ID of the case variable (a long value).
   "name":"name of the variable in the case",
   "value":"the current value of the case variable",
   "case_id":"ID of the case this variable belongs to",
-  "type":_the Java type of the variable"
+  "type":"the Java type of the variable"
 }
 ----
 
@@ -1952,8 +1955,8 @@ WARNING: only following types are supported for _javaTypeclassname_: java.lang.S
 [source,json]
 ----
 {
-  type: "javaTypeclassname",
-  value: "newValue"
+  "type": "javaTypeclassname",
+  "value": "newValue"
 }
 ----
 
@@ -1968,7 +1971,7 @@ _Example_: `/API/bpm/caseVariable?p=0&c=10&f=case\_id%3d11754`
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 `f = case_id%3d[caseId]` to indicate that you want to add a filter on 'case_id' with value [caseId] (%3d is the URL-encoded '=' (equals) sign)
 * *Success Response* +
 A representation of a list of case variables
@@ -2001,9 +2004,11 @@ A representation of a list of case variables
 
 Use the document resource to access a document in an active case.
 
-WARNING:
-*:fa-exclamation-triangle: Caution:* This resource is deprecated and may be removed in a future release. Instead, use caseDocument or archivedCaseDocument.
+[WARNING]
+====
 
+*:fa-exclamation-triangle: Caution:* This resource is deprecated and may be removed in a future release. Instead, use caseDocument or archivedCaseDocument.
+====
 
 == CaseDocument
 
@@ -2012,10 +2017,11 @@ WARNING:
 
 Use the case document resource to access a document in an active case. For archived cases and previous document versions use archivedCaseDocument.
 
-WARNING:
+[WARNING]
+====
 
-* `author` in the payload is deprecated: use `submittedBy`
-
+`author` in the payload is deprecated: use `submittedBy`
+====
 
 [discrete]
 ==== Identifier
@@ -2055,7 +2061,7 @@ The methods used for this resource are:
 * PUT - Update a resource
 * DELETE - Remove a resource
 
-+++<a id="upload_casedoc">++++++</a>+++
+[#upload_casedoc]
 
 [discrete]
 ==== Add a document to a case
@@ -2110,7 +2116,7 @@ In this example, `isInternal` is set to `true` because the the document object c
   "caseId":"1",
   "contentStorageId":"4",
   "isInternal":"true",
-  "description":"draft,
+  "description":"draft",
   "name":"Doc 1",
   "fileName":"document_1.jpg",
   "submittedBy":"1",
@@ -2133,7 +2139,7 @@ In this example, `isInternal` is set to `false` because the document is specifie
   "caseId":"1",
   "contentStorageId":"4",
   "isInternal":"false",
-  "description":"draft,
+  "description":"draft",
   "name":"Train receipt",
   "fileName":"train_receipt.png",
   "submittedBy":"1",
@@ -2170,7 +2176,7 @@ The response includes the "url" to use to download the content. Call the documen
   "caseId":"1",
   "contentStorageId":"4",
   "isInternal":"true",
-  "description":"draft,
+  "description":"draft",
   "name":"Doc 1",
   "fileName":"doc.jpg",
   "submittedBy":"1",
@@ -2230,7 +2236,7 @@ Find all documents with with any of the searchable fields starting with "doc". `
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 It is possible to filter on three parameters: submittedBy, name and description.
  ** `submittedBy="id"`: search for documents that were submitted by the user with the specified identifier.
  ** `name="string"`: search for documents with names that contain _string_.
@@ -2254,7 +2260,7 @@ A document object for each matching document
     "caseId":"1",
     "contentStorageId":"4",
     "isInternal":"true",
-    "description":"draft,
+    "description":"draft",
     "name":"doc1",
     "fileName":"doc.jpg",
     "submittedBy":"1",
@@ -2267,9 +2273,9 @@ A document object for each matching document
     "index":"-1",
     "contentMimetype":"image/png",
     "caseId":"1",
-    "contentStorageId":"4"
+    "contentStorageId":"4",
     "isInternal":"false",
-    "description":"draft,
+    "description":"draft",
     "name":"doc2",
     "fileName":"train_receipt.png",
     "submittedBy":"1",
@@ -2348,7 +2354,7 @@ Response payload
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 It is possible to filter on the following parameters: sourceObjectId, caseId, archivedCaseId, submittedBy, name, description.
  ** `sourceObjectId="id"`: search for documents by specifying the original document id.
 This is useful if you know the id of a caseDocument and you wish to retrieve all its previous versions..
@@ -2425,7 +2431,7 @@ An archived document object for each matching document
 Delete the document content with id 3
 
 * *URL* +
-`/API/bpm/archivedCaseDocument/:archivedCaseId``
+`/API/bpm/archivedCaseDocument/:archivedCaseId`
 * *Method* +
 `DELETE`
 
@@ -2450,7 +2456,7 @@ Simple, the ID of the object (a long value)
   "process_id":"process definition id",
   "description":"a description of the actor",
   "name":"name of the actor (as specified on human tasks and for the initiator of the process)",
-  "displayName":"the display name of the actor",
+  "displayName":"the display name of the actor"
 }
 ----
 
@@ -2467,7 +2473,7 @@ Use a GET method to retrieve information about an actor.
 
 * *URL* +
 `/API/bpm/actor/:actorId` +
-_Example_: Get the information about the actor with id=1: `/API/bpm/actor/1`
+_Example_: Get the information about the actor with id=1\: `/API/bpm/actor/1`
 * *Method* +
 `GET`
 * *Success Response*
@@ -2491,11 +2497,11 @@ Use a GET method to search actors for a given process id.
 
 * *URL* +
 `/API/bpm/actor` +
-_Example_: Count the actor members of actors of the process with id 4758765 `/API/bpm/actor?p=0&c=10&f=process_id=4758765&n=users&n=group&n=roles&n=memberships`
+_Example_: Count the actor members of actors of the process with id https://github.com/bonitasoft/bonita-doc/commit/4758765[`4758765`] `/API/bpm/actor?p=0&c=10&f=process_id=4758765&n=users&n=group&n=roles&n=memberships`
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
 * *Success Response*
  ** *Code*: 200
  ** *Payload*:
@@ -2630,7 +2636,7 @@ _Example_: ``
 * *Method* +
 ``
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 There is a mandatory filter on:
  ** `actor\_id` For example, retrieve the actorMembers related to the specified actor_id. http://localhost:8080/bonita/API/bpm/actorMember?p=0&c=10&f=actor_id%3d1
 
@@ -2657,7 +2663,7 @@ Use the DELETE method to delete an existing actorMember.
 
 == Cases (Process Instances)
 
-+++<a id="case">++++++</a>+++
+[#case]
 
 === Case
 
@@ -2704,11 +2710,11 @@ ID of the Object: a long value
 * GET - Read a case or search for a case
 * DELETE - Remove a case
 
-+++<a id="case-deploy">++++++</a>+++
+[#case-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * `started_by`
 * `startedBySubstitute`
@@ -2810,7 +2816,7 @@ _Example_:  list active cases for process definition with ID 1234 `/API/bpm/case
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
  ** f: filter of the search. Available filters are :
   *** `processDefinitionId`: The process derfinition ID
   *** `name`: the process name
@@ -2980,38 +2986,40 @@ The process definition id, in JSON
 
 [source,json]
 ----
-  {
-    "processDefinitionId":"5777042023671752656"
-  }
+{
+  "processDefinitionId":"5777042023671752656"
+}
 ----
 
 ===== Create a case with variables
 
- danger
+[IMPORTANT]
+====
+
 :fa-exclamation-triangle: *Warning:* The attribute "variables" on the request payload is used to initialize the process variables (not BDM variables).
 If you want to initialize BDM variables at process instantiation, add a contract on the process and map BDM variables to the contract data.
 See <<start-a-process-using-an-instantiation-contract,Start a process using an instantiation contract>> for usage.
-
+====
 
 [source,json]
 ----
-  {
-    "processDefinitionId":"5777042023671752656",
-    "variables":[
-      {
-        "name":"stringVariable",
-        "value":"aValue"
-      },
-      {
-        "name":"dateVariable",
-        "value":349246800000
-      },
-      {
-        "name":"numericVariable",
-        "value":5
-      }
-    ]
-  }
+{
+  "processDefinitionId":"5777042023671752656",
+  "variables":[
+    {
+      "name":"stringVariable",
+      "value":"aValue"
+    },
+    {
+      "name":"dateVariable",
+      "value":349246800000
+    },
+    {
+      "name":"numericVariable",
+      "value":5
+    }
+  ]
+}
 ----
 
 * *Success Response* +
@@ -3060,7 +3068,7 @@ List of case ids to delete
 * *Success Response*
  ** *Code*: 200
 
-+++<a id="retrieve-the-case-context">++++++</a>+++
+[#retrieve-the-case-context]
 
 ==== Retrieve the case context
 
@@ -3100,7 +3108,7 @@ A context object
   }
 }
 ----
-+
+
 === ArchivedCase
 
 ==== Description
@@ -3148,11 +3156,11 @@ The methods used for this resource are:
 * GET - Read a resource or search for a resource
 * DELETE - Remove a resource
 
-+++<a id="archived-case-deploy">++++++</a>+++
+[#archived-case-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * `started_by`
 * `startedBySubstitute`
@@ -3207,7 +3215,7 @@ You can search cases.
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
  ** o (order): available values are `id`, `processDefinitionId`, `startedBy`, `startedBySubstitute`, `startDate`,
 `endDate`, `lastUpdate`, `archivedDate`, `sourceObjectId`
  ** f: filter of the search. Available filters are :
@@ -3446,11 +3454,13 @@ The method used for this resource is:
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * `userId`
 
-NOTE:
+[NOTE]
+====
+
 Note: if the `userId` is not provided as a deploy parameter, the `userId` property of a comment is filled with the system user :
 
 [source,json]
@@ -3461,7 +3471,7 @@ Note: if the `userId` is not provided as a deploy parameter, the `userId` proper
 }
 ----
 
-
+====
 
 ==== Create a comment
 
@@ -3505,7 +3515,7 @@ _Example_: `/API/bpm/comment?p=0&c=10&o=postDate%20DESC&f=processInstanceId%3d1&
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
  ** o: you can sort on the `postDate`
  ** f: filter of the search. Available filters are :
   *** `supervisor_id`
@@ -3584,11 +3594,13 @@ The method used for this resource is:
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * `userId`
 
-NOTE:
+[NOTE]
+====
+
 Note: if the `userId` is not provided as a deploy parameter, the `userId` property of a comment is filled with the system user :
 
 [source,json]
@@ -3599,7 +3611,7 @@ Note: if the `userId` is not provided as a deploy parameter, the `userId` proper
 }
 ----
 
-
+====
 
 ==== Search for archived comments
 
@@ -3609,7 +3621,7 @@ _Example_: `/API/bpm/archivedComment?p=0&c=10&o=postDate%20DESC&f=processInstanc
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
  ** o: you can sort on the `postDate` and `archivedDate`
  ** f: filter of the search. Available filters are :
   *** `supervisor_id`
@@ -3659,7 +3671,7 @@ JSON representations of matching comments
   }
 ]
 ----
-+
+
 == Process
 
 === Process
@@ -3702,11 +3714,11 @@ The methods used for this resource are:
 * PUT - Update a process
 * DELETE - Delete a process and all its cases
 
-+++<a id="process-deploy">++++++</a>+++
+[#process-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * `deployedBy`
 
@@ -3806,12 +3818,14 @@ The fields to be updated, in JSON
 
 You can delete a process based on its ID.
 
-WARNING:
-*Warning:* *Beware! Data loss risk!*
+[WARNING]
+====
+
+*Beware! Data loss risk!*
 Deleting a process will automatically delete all its cases (on-going and archived alike). Thus, the operation may take a long time, and fail if the transaction timeout is not large enough.
 This feature should only be used on non-production environments.
 *Please proceed at your own risk.*
-
+====
 
 * *URL* +
 `/API/bpm/process/:processId`
@@ -3824,12 +3838,14 @@ This feature should only be used on non-production environments.
 
 You can also delete several processes.
 
-WARNING:
-*Warning:* *Beware! Data loss risk!*
+[WARNING]
+====
+
+*Beware! Data loss risk!*
 Deleting a process will automatically delete all its cases (on-going and archived alike). Thus, the operation may take a long time, and fail if the transaction timeout is not large enough.
 This feature should only be used on non-production environments.
 *Please proceed at your own risk.*
-
+====
 
 * *URL* +
 `/API/bpm/process`
@@ -3856,7 +3872,7 @@ _Example_:
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
  ** s: search on "name", "displayName" or "version"
  ** o: can order by "name", "version", "deploymentDate", "deployedBy", "activationState", "configurationState", "processId", "displayName", "lastUpdateDate", "categoryId", "label". By default sort order is ASC (`%20asc` added to order). You can sort in reverse order by adding `%20desc` to order. Example: `/API/bpm/process?f=name=MyProcess&p=0&c=1&o=version%20desc&f=activationState=ENABLED`
  ** f: can filter on "name", "version", "deploymentDate", "deployedBy", "activationState" with the value DISABLED or ENABLED, "configurationState" with the value UNRESOLVED, or RESOLVED, "processId", "displayName", "lastUpdateDate", "categoryId", "label", "supervisor_id"
@@ -3877,7 +3893,7 @@ Process design can be retrived client side.
 The process design object. The JSON returned is a representation of the http://documentation.bonitasoft.com/javadoc/api/${varVersion}/index.html[DesignProcessDefinition] instance of the given process id.
  ** *Code*: 200
 
-+++<a id="instantiate_process">++++++</a>+++
+[#instantiate_process]
 
 ==== Instantiate a process
 
@@ -3952,7 +3968,7 @@ The task contract elements
 }
 ----
 
-+++<a id="start-a-process-using-an-instantiation-contract">++++++</a>+++
+[#start-a-process-using-an-instantiation-contract]
 
 ===== Start a process using an instantiation contract
 
@@ -4001,7 +4017,7 @@ The created case ID 201 OK or a contract violation explanation in case of a 400 
   ]
 }
 ----
-+
+
 === Diagram (Subscription editions only)
 
 ==== Description
@@ -4106,7 +4122,7 @@ _Example_: `/API/bpm/processParameter?p=0&c=10&o=name%20ASC&f=process\_id%3d4880
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
 * *Success Response* +
 A array of process parameters
  ** *Code*: 200
@@ -4181,7 +4197,7 @@ _Example_: `/API/bpm/processResolutionProblem?p=0&c=100&f=process\_id%3d88028384
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 Filtering on the process definition ID is mandatory.
  ** `f=process_id=<process_definition_id>`: this filter is used to indicate the target process
 * *Success Response* +
@@ -4236,11 +4252,11 @@ A compound identifier constructed from process_id/user_id/role_id/group_id where
 * GET - Search for process supervisors
 * DELETE - Remove a process supervisor
 
-+++<a id="process-supervisor-deploy">++++++</a>+++
+[#process-supervisor-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * `role_id`
 * `group_id`
@@ -4249,62 +4265,62 @@ The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend respon
 ==== Search for process supervisors of a given type (user, group, role or membership)
 
 * *URL* +
-`/API/bpm/processSupervisor` +
-_Example_: Get the supervisors of type `User` for the process 8040901857674754544: `API/bpm/processSupervisor?c=5&d=user_id&f=process_id%3D8040901857674754544&f=user_id%3D>0&f=group_id%3D-1&f=role_id%3D-1&p=0`
+  `/API/bpm/processSupervisor` +
+_Example_: Get the supervisors of type `User` for the process https://github.com/bonitasoft/bonita-doc/commit/8040901857674754544[`8040901`]: `API/bpm/processSupervisor?c=5&d=user_id&f=process_id%3D8040901857674754544&f=user_id%3D>0&f=group_id%3D-1&f=role_id%3D-1&p=0`
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
  ** f: filter of the search, you need to specify the process_id, and then the user_id, group_id and role_id with one of them (two if you want to filter on group and role) set to `>0` and the other ones set to `-1`. E.g.: `f=process_id%3D8040901857674754544&f=user_id%3D>0&f=group_id%3D-1&f=role_id%3D-1`
  ** d: extend resource response parameters of <<process-supervisor-deploy,this resource>> are available.
 * *Success Response* +
 JSON representations of matching process supervisors
  ** *Code*: 200
  ** *Payload*:
-+
+
 [source,json]
 ----
 [
- {
- "process_id":"8040901857674754544",
- "user_id":{
-   "firstname":"April",
-   "icon":"icons/default/icon_user.png",
-   "creation_date":"2017-09-07 16:44:38.321",
-   "userName":"april.sanchez",
-   "title":"Mrs",
-   "created_by_user_id":"-1",
-   "enabled":"true",
-   "lastname":"Sanchez",
-   "last_connection":"",
-   "manager_id":"3",
-   "id":"2",
-   "job_title":"Compensation specialist",
-   "last_update_date":"2017-09-07 16:44:38.321"
- },
- "role_id":"-1",
- "group_id":"-1"
- },
- {
- "process_id":"8040901857674754544",
- "user_id":{
-   "firstname":"Anthony",
-   "icon":"icons/default/icon_user.png",
-   "creation_date":"2017-09-07 16:44:38.456",
-   "userName":"anthony.nichols",
-   "title":"Mr",
-   "created_by_user_id":"-1",
-   "enabled":"true",
-   "lastname":"Nichols",
-   "last_connection":"",
-   "manager_id":"17",
-   "id":"18",
-   "job_title":"Account manager",
-   "last_update_date":"2017-09-07 16:44:38.456"
- },
- "role_id":"-1",
- "group_id":"-1"
- }
+   {
+     "process_id":"8040901857674754544",
+     "user_id":{
+       "firstname":"April",
+       "icon":"icons/default/icon_user.png",
+       "creation_date":"2017-09-07 16:44:38.321",
+       "userName":"april.sanchez",
+       "title":"Mrs",
+       "created_by_user_id":"-1",
+       "enabled":"true",
+       "lastname":"Sanchez",
+       "last_connection":"",
+       "manager_id":"3",
+       "id":"2",
+       "job_title":"Compensation specialist",
+       "last_update_date":"2017-09-07 16:44:38.321"
+     },
+     "role_id":"-1",
+     "group_id":"-1"
+   },
+   {
+     "process_id":"8040901857674754544",
+     "user_id":{
+       "firstname":"Anthony",
+       "icon":"icons/default/icon_user.png",
+       "creation_date":"2017-09-07 16:44:38.456",
+       "userName":"anthony.nichols",
+       "title":"Mr",
+       "created_by_user_id":"-1",
+       "enabled":"true",
+       "lastname":"Nichols",
+       "last_connection":"",
+       "manager_id":"17",
+       "id":"18",
+       "job_title":"Account manager",
+       "last_update_date":"2017-09-07 16:44:38.456"
+     },
+     "role_id":"-1",
+     "group_id":"-1"
+   }
  ]
 ----
 
@@ -4323,41 +4339,41 @@ The process definition id and either the user, role and/or group id.
 
 [source,json]
 ----
-  {
-    "process_id":"5777042023671752656",
-    "user_id":"11"
-  }
+{
+  "process_id":"5777042023671752656",
+  "user_id":"11"
+}
 ----
 
 ===== Add a process supervisor of type `Group`
 
 [source,json]
 ----
-  {
-    "process_id":"5777042023671752656",
-    "group_id":"2"
-  }
+{
+  "process_id":"5777042023671752656",
+  "group_id":"2"
+}
 ----
 
 ===== Add a process supervisor of type `Role`
 
 [source,json]
 ----
-  {
-    "process_id":"5777042023671752656",
-    "role_id":"114"
-  }
+{
+  "process_id":"5777042023671752656",
+  "role_id":"114"
+}
 ----
 
 ===== Add a process supervisor of type `Membership`
 
 [source,json]
 ----
-  {
-    "process_id":"5777042023671752656",
-    "role_id":"11",
-    "group_id":"2"
-  }
+{
+  "process_id":"5777042023671752656",
+  "role_id":"11",
+  "group_id":"2"
+}
 ----
 
 * *Success Response* +
@@ -4446,11 +4462,11 @@ Use a GET method with filters to search for connector dependencies.
 
 * *URL* +
 `/API/bpm/processConnectorDependency` +
-_Example_: Get connector dependencies of the email connector (version 1.0.0) of the process with id = 4971555129176049183: `/API/bpm/processConnectorDependency?c=10&p=0&f=connector_process_id=4971555129176049183&f=connector_name=email&f=connector_version=1.0.0`
+_Example_: Get connector dependencies of the email connector (version 1.0.0) of the process with id = https://github.com/bonitasoft/bonita-doc/commit/4971555129176049183[`4971555`]: `/API/bpm/processConnectorDependency?c=10&p=0&f=connector_process_id=4971555129176049183&f=connector_name=email&f=connector_version=1.0.0`
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 Mandatory filters: connector_process_id, connector_name, connector_version
 * *Success Response*
  ** *Code*: 200
@@ -4522,7 +4538,7 @@ A connectorFailure resource as JSON
 }
 ----
 
-+++<a id="connector-instance">++++++</a>+++
+[#connector-instance]
 
 === ConnectorInstance
 
@@ -4560,11 +4576,11 @@ The methods used for this resource are:
 `/API/bpm/connectorInstance` +
 _Example_:
  ** Get information about connectors attached to a flow node with instanceId 15 :``/API/bpm/connectorInstance?p=0&c=10&f=containerId%3d15``
- ** Get information about connectors attached to a process instance with instanceId 4781948523999597477: `/API/bpm/connectorInstance?p=0&c=10&f=containerId%3d4781948523999597477`
+ ** Get information about connectors attached to a process instance with instanceId https://github.com/bonitasoft/bonita-doc/commit/4781948523999597477[`4781948`]: `/API/bpm/connectorInstance?p=0&c=10&f=containerId%3d4781948523999597477`
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
  ** `+f=containerId%3d{id}+`. The container ID of the process or flow node.
 * *Success Response* +
 A list of connector details
@@ -4654,7 +4670,7 @@ _Example_: Get information about archived instances sort by containerId DESC Req
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available.
+xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available.
 * *Success Response* +
 A list of connector details
  ** *Code*: 200
@@ -4705,28 +4721,28 @@ The ID of the flowNode (a long).
 [source,json]
 ----
 {
-  "id": "the flow node id (long)",
-  "displayDescription": "the human readable flow node description (string)",
-  "executedBySubstitute": "the id (long) of the user who really performed this flow node in case where a substitute did it, or 0 if the flow node was not performed by a substitute",
-  "caseId": "the case id (long) that is associated with this flow node",
-  "parentCaseId": "the parent case id (long) that is associated with this flow node's case",
-  "rootCaseId": "the root case initiator id (long) that is associated with this flow node's case",
-  "processId": "the process id (long) that is associated with this flow node","
-  "rootContainerId": "the root process id (long) of the root case that is associated with this flow node",
-  "state": "the current state of the flow node (string,  for example, ready, completed, failed)",
-  "type": "the flow node type (string)",
-  "assigned_id": "the user id (long) that this flow node is assigned to, or 0 if it is unassigned",
-  "assigned_date": "the date ('yyyy-MM-dd HH:mm:ss.SSS') when the current flow node was assigned, for example '2014-10-17 16:05:42.626'",
-  "executedBy": "the id (long) of the user who executed the flow node, or 0 if the flow node has not been executed",
-  "priority": "the priority (string) of the current flow node",
-  "actorId": "the id (long) of the actor that can execute this flow node, null otherwise",
-  "description": "the flow node description (string)",
-  "name": "the flow node name (string)",
-  "reached_state_date": "the date ('yyyy-MM-dd HH:mm:ss.SSS') when this flow node reached the current state, for example '2014-10-17 16:05:42.626'",
-  "displayName": "the display name (string) of this flow node",
-  "dueDate": "the date ('yyyy-MM-dd HH:mm:ss.SSS') when this flow node is due, for example '2014-10-17 16:05:42.626'",
-  "last_update_date": "the date ('yyyy-MM-dd HH:mm:ss.SSS') when this flow node was last updated, for example '2014-10-17 16:05:42.626)",
-  "parentTaskId" : "in the case of a subtask, the parent task id (long)"
+ "id": "the flow node id (long)",
+ "displayDescription": "the human readable flow node description (string)",
+ "executedBySubstitute": "the id (long) of the user who really performed this flow node in case where a substitute did it, or 0 if the flow node was not performed by a substitute",
+ "caseId": "the case id (long) that is associated with this flow node",
+ "parentCaseId": "the parent case id (long) that is associated with this flow node's case",
+ "rootCaseId": "the root case initiator id (long) that is associated with this flow node's case",
+ "processId": "the process id (long) that is associated with this flow node","
+ "rootContainerId": "the root process id (long) of the root case that is associated with this flow node",
+ "state": "the current state of the flow node (string,  for example, ready, completed, failed)",
+ "type": "the flow node type (string)",
+ "assigned_id": "the user id (long) that this flow node is assigned to, or 0 if it is unassigned",
+ "assigned_date": "the date ('yyyy-MM-dd HH:mm:ss.SSS') when the current flow node was assigned, for example '2014-10-17 16:05:42.626'",
+ "executedBy": "the id (long) of the user who executed the flow node, or 0 if the flow node has not been executed",
+ "priority": "the priority (string) of the current flow node",
+ "actorId": "the id (long) of the actor that can execute this flow node, null otherwise",
+ "description": "the flow node description (string)",
+ "name": "the flow node name (string)",
+ "reached_state_date": "the date ('yyyy-MM-dd HH:mm:ss.SSS') when this flow node reached the current state, for example '2014-10-17 16:05:42.626'",
+ "displayName": "the display name (string) of this flow node",
+ "dueDate": "the date ('yyyy-MM-dd HH:mm:ss.SSS') when this flow node is due, for example '2014-10-17 16:05:42.626'",
+ "last_update_date": "the date ('yyyy-MM-dd HH:mm:ss.SSS') when this flow node was last updated, for example '2014-10-17 16:05:42.626)",
+ "parentTaskId" : "in the case of a subtask, the parent task id (long)"
 }
 ----
 
@@ -4737,11 +4753,11 @@ The methods used for this resource are:
 * GET - Read a flow node or search for a flow node
 * PUT - Replay a flow node (only in Enterprise and Performance editions)
 
-+++<a id="flownode-deploy">++++++</a>+++
+[#flownode-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * processId: the id of the process that is associated with the activity
 * caseId: the id of the case that is associated with the activity
@@ -4805,9 +4821,9 @@ Search for flow nodes using given parameters. Flow nodes in states completed, ca
 _Example_: Get all the active flow nodes named "Escalate", ordering the results by state: `/API/bpm/flowNode/?p=0&c=10&f=name%3dEscalate&o%3dstate`
 * *Method* +
 `GET`
-+++<a id="flownode-search-data-params">++++++</a>+++
+[#flownode-search-data-params]
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+ xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 The following parameters are available:
  ** o:
   *** name
@@ -4826,7 +4842,7 @@ The following parameters are available:
   *** parentCaseId
   *** rootCaseId
   *** last_update_date
- ** d: extend resource response parameters of <<flownode-deploy,this resource>> are available.
+ ** d: extend resource response parameters of  <<flownode-deploy,this resource>> are available.
 * *Success Response* +
 An array of JSON representations of flow nodes
  ** *Code*: 200
@@ -4899,11 +4915,11 @@ The methods used for this resource are:
 
 * GET - Read a flow node or search for a flow node
 
-+++<a id="archived-flow-node-deploy">++++++</a>+++
+[#archived-flow-node-deploy]
 
 ==== Response object extension (deploy query parameter)
 
-The `d` (deploy) used to link:rest-api-overview.md#extend-resource[extend response object] can be used with :
+The `d` (deploy) used to  xref:rest-api-overview.adoc]#extend-resource[extend response object] can be used with :
 
 * processId: the id of the process that is associated with the activity
 * caseId: the id of the case that is associated with the activity
@@ -4937,7 +4953,7 @@ Search for flow nodes using given parameters. Flow nodes in state completed, can
 * *Method* +
 `GET`
 * *Data Params* +
-link:rest-api-overview.md#resource_search[Standard search parameters] are available. +
+ xref:rest-api-overview.adoc]#resource_search[Standard search parameters] are available. +
 The following parameters are available:
  ** o:
   *** name
@@ -4963,12 +4979,12 @@ The following parameters are available:
   *** archivedDate
   *** reachedStateDate
   *** sourceObjectId
- ** d: extend resource response parameters of <<archived-flow-node-deploy,this resource>> are available.
+ ** d: extend resource response parameters of  <<archived-flow-node-deploy,this resource>> are available.
 * *Success Response* +
 The JSON representation of the specified flownode
  ** *Code*: 200
 
-+++<a id="timers">++++++</a>+++
+[#timers]
 
 === TimerEventTrigger
 
@@ -5053,18 +5069,19 @@ A JSON representation of a long value with attribute name "executionDate"
 ----
 
 * *Success Response* +
-The actual long value corresponding to the next execution date of the timer event trigger, as a long value
+  The actual long value corresponding to the next execution date of the timer event trigger, as a long value
  ** *Code*: 200
  ** *Payload*:
 +
-[source,json]
 ----
+```json
 {
     "executionDate": 1433980484194
 }
+```
 ----
 +
-+++<a id="message">++++++</a>+++
+[#message]
 
 === Message
 

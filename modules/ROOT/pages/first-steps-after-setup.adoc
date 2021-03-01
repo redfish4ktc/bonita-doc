@@ -1,4 +1,5 @@
 = Post-installation recommendations
+:description: This page describes the best practices and steps to follow in order to ensure the security of the platform after the initial installation.
 
 This page describes the best practices and steps to follow in order to ensure the security of the platform after the initial installation.
 
@@ -20,7 +21,9 @@ There are a number of ways you can improve the security of your platform.
 
 ==== Change default password for Technical User and System Administrator
 
-System Administrator and Technical User accounts allow corresponding user(s) to completely configure Bonita. As for demo and ease of installation purposes, Bonita is delivered with default user and password for these two accounts. Such credentials are accessible in the documentation over the Internet. It's highly recommended to change such passwords and replace them with strong ones to better protect administration consoles. 
+|===
+| System Administrator and Technical User accounts allow corresponding user(s) to completely configure Bonita. As for demo and ease of installation purposes, Bonita is delivered with default user and password for these two accounts. Such credentials are accessible in the documentation over the Internet. It's highly recommended to change such passwords and replace them with strong ones to better protect administration consoles.
+|===
 
 ==== Use HTTPS for all communications
 
@@ -32,11 +35,11 @@ A key security concern when using passwords for authentication is password stren
 
 ==== Choose a strong password for your database
 
-The database is at the heart of your application. It is where all entreprise data (sensitive or non-sensitive) is stored. As a result, the database username and password are of great value to the business and they need to be protected. It is highly recommended to choose strong, random and long passwords, since they make it difficult or even improbable for one to guess the password through either manual or automated means. 
+The database is at the heart of your application. It is where all entreprise data (sensitive or non-sensitive) is stored. As a result, the database username and password are of great value to the business and they need to be protected. It is highly recommended to choose strong, random and long passwords, since they make it difficult or even improbable for one to guess the password through either manual or automated means.
 
 ==== Choose a strong password for your connectors
 
-In Bonita, connectors enable connections to your local information system or online services. The authentication credentials used for these connections are of great value to the business and as a result, they need to be protected. It is highly recommended to choose strong, random and long passwords, as explained above, to makes it difficult or even improbable for one to guess the password. 
+In Bonita, connectors enable connections to your local information system or online services. The authentication credentials used for these connections are of great value to the business and as a result, they need to be protected. It is highly recommended to choose strong, random and long passwords, as explained above, to makes it difficult or even improbable for one to guess the password.
 
 ==== Limit the usage of Bonita REST API
 
@@ -49,14 +52,16 @@ To do so:
 . Then edit the file: `/setup/platform_conf/current/tenants/<TENANT_ID>/tenant_portal/dynamic-permissions-checks-custom.properties`
 . Uncomment all the lines to restrict the authorization access on all the Bonita REST API (lines starting with `GET`, `PUT`, `POST`...).
 i.e. to restrict the authorization on the instantiation and humanTask API, to only users that are allowed to them (meaning that they are: assigned or pending to, or processes that they deployed or that they supervised), uncomment:
-+
+
+[source,properties]
 ----
 GET|bpm/process/*/instantiation=[profile|Administrator, check|org.bonitasoft.permissions.ProcessInstantiationPermissionRule]
 POST|bpm/process/*/instantiation=[profile|Administrator, check|org.bonitasoft.permissions.ProcessInstantiationPermissionRule]
 ----
-+
+
 And:
-+
+
+[source,properties]
 ----
 GET|bpm/humanTask=[profile|Administrator, check|org.bonitasoft.permissions.TaskPermissionRule]
 PUT|bpm/humanTask=[profile|Administrator, check|org.bonitasoft.permissions.TaskPermissionRule]

@@ -1,10 +1,13 @@
 = Multi-language pages
+:description: The UI Designer includes a mechanism to add translations for page, layout and form elements, to support multi-language applications.
 
 The UI Designer includes a mechanism to add translations for page, layout and form elements, to support multi-language applications.
 
-NOTE:
-*Note:* For Enterprise, Performance, Efficiency, and Teamwork editions only.
+[NOTE]
+====
 
+For Enterprise, Performance, Efficiency, and Teamwork editions only.
+====
 
 == Visualization
 
@@ -33,7 +36,6 @@ To use a localization asset, replace the default `localization.json` file with a
   {
     "english key":"translated key for language-B",
     "english key2":"translated key2 for language-B",
-
      ...
    }
   ...
@@ -57,6 +59,7 @@ However, to be sure that you identify all the items that need to be translated, 
 
 For the Travel Tool application page, this is the set of text strings to translate:
 
+[source,text]
 ----
 Travel Tool
 This page lists your pending and approved travel requests.
@@ -132,7 +135,7 @@ In the custom widget editor, use the the _uiTranslate_ filter or the _ui-transla
 
 The strings to translate in a fragment must be added to the localization.json file of each page, layout or form using the fragment.
 
-+++<a id="uiTranslate">++++++</a>+++
+[#uiTranslate]
 
 === Translate content in variables of type JavaScript Expression
 

@@ -1,10 +1,13 @@
 = How to manage dates and times in BDM and User Interfaces
+:description: Manage dates and times in user interface is often difficult. This following howTo should help you.
 
 Manage dates and times in user interface is often difficult. This following howTo should help you.
 
-NOTE:
-This howto applies to Bonita 7.5.0 and above.
+[NOTE]
+====
 
+This howto applies to Bonita 7.5.0 and above.
+====
 
 To manage dates and times in the BDM and User Interfaces, Bonita comes with 3 types of data that you can manipulate through processes, APIs and user interfaces (forms/pages). +
 This page gives a step-by-step procedure to create a process with forms that allow to choose a date (with or without a time) and then display it, leveraging each of these data types.
@@ -61,11 +64,13 @@ FYI, The value returned by the REST API for the birth date will be an ISO 8601 f
 . Set the *value* of the *Date picker* widget to `employee.birthdate`
 . Update the variable _formOutput_ to change its value to :
 `return {
- 'employeeInput': $data.employee
+	'employeeInput': $data.employee
 };`
 . You can delete the variable _formInput_
 
-NOTE:
+[NOTE]
+====
+
 The Date picker widget supports the following types for its *Value* property as input:
 
 * https://en.wikipedia.org/wiki/ISO_8601[ISO 8601] String variables (with or without time information)
@@ -75,7 +80,7 @@ The Date picker widget supports the following types for its *Value* property as 
 However, to support pages designed with an older UI Designer version, the output of the widget is always a Javascript Date object. So it will change the type of the variable bound to the widget *Value* to a Date object when the user selects a date. +
 When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z).
 The time information is dropped at contract level when received by the process instantiation REST API and converted to a `java.time.LocalDate`.
-
+====
 
 [discrete]
 ==== Retrieve the date from the database and display it
@@ -85,7 +90,7 @@ In order to do so:
 
 . Create a new task named _Review birth date_ after the existing one
 . In the task *Execution* tab, *Form* section, generate the form by clicking on the *pencil* icon
-. In the UI Designer, define a variable to retrieve the _Employee_ currently stored, using the context.  +
+. In the UI Designer, define a variable to retrieve the _Employee_ currently stored, using the context. +
 In order to do so, proceed the same way as you did for the previous step form:
  .. In the *Variables* panel at the bottom of the editor, click on *Create a new variable*
  .. Enter the name _employee_ for the new variable
@@ -155,14 +160,16 @@ FYI, The value returned by the REST API for the flight departure time will be an
 . Set the *Value* of the *Date time picker* widget to `flight.departureTime`
 . Update the variable _formOutput_ to change its value to:
 `return {
- 'flightInput': $data.flight
+	'flightInput': $data.flight
 };`
 . You can delete the variable _formInput_
 
-NOTE:
+[NOTE]
+====
+
 The *Date time picker* widget output is an https://en.wikipedia.org/wiki/ISO_8601[ISO 8601] formatted String (e.g. "2017-01-13T15:00:00"). +
 At contract level, when received by the task execution REST API, it is converted to a `java.time.LocalDateTime`.
-
+====
 
 [discrete]
 ==== Retrieve the date and time from the database and display them
@@ -244,15 +251,17 @@ FYI, The value returned by the REST API for the meeting start time will be an IS
 . Set the *Value* of the *Date time picker* widget to `meeting.startTime`
 . Update the variable _formOutput_ to change its value to:
 `return {
- 'meetingInput': $data.meeting
+	'meetingInput': $data.meeting
 };`
 . You can delete the variable _formInput_
 
-NOTE:
+[NOTE]
+====
+
 The *Date time picker* widget output is an https://en.wikipedia.org/wiki/ISO_8601[ISO 8601] formatted String representing the selected date and time in UTC (e.g. "2017-01-13T13:00:00Z"). +
 At contract level when received by the task execution REST API, it is converted to a `java.time.OffsetDateTime`. +
 Unless the user is in the GMT time zone, there will be an offset between the time he selects and the time stored in database.
-
+====
 
 [discrete]
 ==== Retrieve the date and time from the database and display them

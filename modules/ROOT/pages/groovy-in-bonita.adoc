@@ -1,4 +1,5 @@
 = Groovy script language in Bonita
+:description: In Bonita, it is a prerequisite to be comfortable with Java when implementing advanced behaviors in your processes, the below article aims at helping with Groovy, the scripting language used by Bonita.
 
 In Bonita, it is a prerequisite to be comfortable with Java when implementing advanced behaviors in your processes, the below article aims at helping with Groovy, the scripting language used by Bonita.
 Groovy has been chosen as the scripting language because it is :
@@ -37,9 +38,11 @@ line three'''
 "a double quoted string"
 ----
 
-WARNING:
-Double quoted strings are plain _java.lang.String_ if there's no interpolated expression, but are _groovy.lang.GString_ instances if interpolation is present.
+[WARNING]
+====
 
+Double quoted strings are plain _java.lang.String_ if there's no interpolated expression, but are _groovy.lang.GString_ instances if interpolation is present.
+====
 
 * String interpolation
 
@@ -275,21 +278,21 @@ Here is the UserAppDAO interface generated for the UserApp object:
 [source,java]
 ----
 public interface AppUserDAO extends BusinessObjectDAO {
-    public AppUser findByPersistenceId(Long persistenceId);
+    AppUser findByPersistenceId(Long persistenceId);
 
-    public List<AppUser> findByFirstName(String firstName, int startIndex, int maxResults);
+    List<AppUser> findByFirstName(String firstName, int startIndex, int maxResults);
 
-    public List<AppUser> findByLastName(String lastName, int startIndex, int maxResults);
+    List<AppUser> findByLastName(String lastName, int startIndex, int maxResults);
 
-    public List<AppUser> find(int startIndex, int maxResults);
+    List<AppUser> find(int startIndex, int maxResults);
 
-    public Long countForFindByFirstName(String firstName);
+    Long countForFindByFirstName(String firstName);
 
-    public Long countForFindByLastName(String lastName);
+    Long countForFindByLastName(String lastName);
 
-    public Long countForFind();
+    Long countForFind();
 
-    public AppUser newInstance(String firstName, String lastName);
+    AppUser newInstance(String firstName, String lastName);
 }
 ----
 
@@ -314,16 +317,19 @@ if (!userInput?.address) { // As Address is not mandatory it can be null
 	return null
 }
 def addressVar = user.address ?: new com.company.model.Address() // Retrieve the existing address or create a new one
+
 addressVar.street = { //Use a Closure to resolve the street value
-	if (!userInput?.address?.street) { // Street is mandatory so it can't be null here, protected by a contract constraint, null-check statement is generated anyway
-		return null
-	}
+    if (!userInput?.address?.street) { // Street is mandatory so it can't be null here, protected by a contract constraint, null-check statement is generated anyway
+        return null
+    }
 	def streetVar = addressVar.street ?: new com.company.model.Street() // Retrieve the existing street or create a new one
 	// Assign contract values, note that nullsafe navigators are used even if we know that userInput.address is not null here
 	streetVar.name = userInput?.address?.street?.name
 	streetVar.number = userInput?.address?.street?.number
 	streetVar.additionalInfo = userInput?.address?.street?.additionalInfo
-	return streetVar}() //execute the Closure to assign  the Street value to address
+	return streetVar
+}() //execute the Closure to assign  the Street value to address
+
 addressVar.postalCode = userInput?.address?.postalCode
 addressVar.city = userInput?.address?.city
 return addressVar // Return the edited (or new) address

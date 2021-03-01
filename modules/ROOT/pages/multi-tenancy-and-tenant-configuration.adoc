@@ -1,10 +1,13 @@
 = Multi-tenant configuration for a Bonita platform
+:description: One single platform to admininstrate with multiple logical engines. Discover what is a Tenant and how to setup Bonita with Multi-tenancy.
 
 One single platform to admininstrate with multiple logical engines. Discover what is a Tenant and how to setup Bonita with Multi-tenancy.
 
-NOTE:
-*Note:* For Enterprise and Performance editions only.
+[NOTE]
+====
 
+For Enterprise and Performance editions only.
+====
 
 == Platform architecture
 
@@ -47,13 +50,15 @@ A tenant can be created using the Java PlatformAPI (see the http://documentation
 NOTE: If xref:define-and-deploy-the-bdm.adoc[business objects] will be deployed in the newly created tenant do not forget to xref:database-configuration.adoc[create the business data database and configure specific data sources].
 This must be done for each tenant that will use the xref:define-and-deploy-the-bdm.adoc[Business Data] feature.
 
-WARNING:
+[WARNING]
+====
+
 *Important* +
 Once a tenant has been created and activated, default theme is not yet loaded. +
 Therefore, as long as you have not logged in to the new tenant, the login page will miss the default theme.
 
 After the first login, default theme will be loaded and the login page will look as usual.
-
+====
 
 === REST API
 
@@ -65,7 +70,10 @@ The xref:platform-api.adoc[platform REST API] is a REST layer around the Java Pl
 
 `curl` is available on Linux OS and it transfers data from or to a server with various protocols such as HTTP and HTTPS.
 
- $ sudo apt install curl
+[source,bash]
+----
+$ sudo apt install curl
+----
 
 NOTE: this is to be done only once.
 
@@ -78,9 +86,12 @@ NOTE: this is to be done only once.
 
 ===== Login
 
- $ curl -v -c saved_cookies.txt -X POST --url 'http://localhost:8080/bonita/platformloginservice' \
- --header 'Content-Type: application/x-www-form-urlencoded; charset=utf-8' \
- -d 'password=platform&redirect=false&username=platformAdmin' -O /dev/null
+[source,bash]
+----
+$ curl -v -c saved_cookies.txt -X POST --url 'http://localhost:8080/bonita/platformloginservice' \
+--header 'Content-Type: application/x-www-form-urlencoded; charset=utf-8' \
+-d 'password=platform&redirect=false&username=platformAdmin' -O /dev/null
+----
 
 The response to this REST API call (HTTP) generates 2 cookies, which must be transfered with each subsequent calls.
 One of the cookie is `X-Bonita-API-Token`.
@@ -89,7 +100,7 @@ Note that the security against CSRF attacks is enabled by default for all fresh 
 
 The cookies have been saved on the disk, in the `saved_cookies.txt` file:
 
-[source,console]
+[source,bash]
 ----
 $ cat saved_cookies.txt
 
@@ -99,7 +110,7 @@ localhost	FALSE	/	FALSE	0	X-Bonita-API-Token	a94cbf84-6b71-409a-981f-f91b1746692
 
 ===== Create the new tenant
 
-[source,console]
+[source,bash]
 ----
 $ curl -b saved_cookies.txt -X POST 'http://localhost:8080/bonita/API/platform/tenant' \
 -H "Content-Type: application/json" \
@@ -115,12 +126,14 @@ $ curl -b saved_cookies.txt -X POST 'http://localhost:8080/bonita/API/platform/t
   "name": "MyTenant",
   "state": "DEACTIVATED",
   "password": ""
-} The new tenant has the id `101` and its state is `DEACTIVATED`
+}
 ----
+
+The new tenant has the id `101` and its state is `DEACTIVATED`
 
 ===== Activate the tenant with id `101`
 
-[source,console]
+[source,bash]
 ----
 $ curl -v -b saved_cookies.txt -X PUT 'http://localhost:8080/bonita/API/platform/tenant/101' \
 -H "Content-Type: application/json" \
@@ -147,7 +160,10 @@ $ curl -b saved_cookies.txt -X GET 'http://localhost:8080/bonita/API/platform/te
 
 ===== Logout
 
- $ curl -v -b saved_cookies.txt -X GET --url 'http://localhost:8080/bonita/platformlogoutservice?redirect=false'
+[source,bash]
+----
+$ curl -v -b saved_cookies.txt -X GET --url 'http://localhost:8080/bonita/platformlogoutservice?redirect=false'
+----
 
 === Java PlatformAPI
 
@@ -264,7 +280,7 @@ For example, to resume the service in a tenant:
 ----
     TenantAdministrationAPI tenantAdministrationAPI = TenantAPIAccessor.getTenantAdministrationAPI(apiSession);
     if (tenantAdministrationAPI.isPaused()) {
-    tenantAdministrationAPI.resume();
+        tenantAdministrationAPI.resume();
     }
 ----
 

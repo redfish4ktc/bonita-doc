@@ -1,8 +1,11 @@
 = Customize layouts
+:description: [NOTE]
 
-NOTE:
-*Note:* For Enterprise, Performance, Efficiency, and Teamwork editions only.
+[NOTE]
+====
 
+For Enterprise, Performance, Efficiency, and Teamwork editions only.
+====
 
 == Overview
 
@@ -17,7 +20,7 @@ Prerequisites to customize a layout:
 * Basic knowledge of the UI Designer
 * An existing living application (to test the modified layout)
 
-The following example shows how to add a new widget into the layout.  +
+The following example shows how to add a new widget into the layout. +
 The example sections show how to:
 
 * Export the layout from Bonita Portal

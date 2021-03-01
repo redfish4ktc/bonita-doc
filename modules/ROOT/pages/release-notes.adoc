@@ -1,8 +1,16 @@
 = Release notes
+:description: == New values added
 
 == New values added
 
+[NOTE]
+====
+
+image:images/tv.png[videos]  Discover what is new in Bonita 7.9 thanks to these short videos in https://www.youtube.com/playlist?list=PLvvoQatxaHOMxnu-1S2lZ_NXk1Brq_WBK[English], https://www.youtube.com/playlist?list=PLvvoQatxaHOMmpQL1nQTz8NPsX6W6GUId[French], or https://www.youtube.com/playlist?list=PLvvoQatxaHOP3QPSvmQhzfQtuw3mqMdHS[Spanish]!
+====
+
 [#improve-form-generation]
+
 === Low code application development: business data management from the Studio to the UI Designer
 
 ==== Easily create forms where business variables or documents are edited by the users (read/write)
@@ -21,7 +29,7 @@ For each form created for a task, the studio now gives the option to display all
 The unneeded attributes can easily be deleted, all useful ones are ready to be displayed to the users, saving a lot of development time.
 For more information, read xref:contracts-and-contexts.adoc[the dedicated documentation].
 
-+++<a id="uid-lazyRef-filter">++++++</a>+++
+[#uid-lazyRef-filter]
 
 ==== New embedded AngularJS filter to resolve the lazy references of a business object
 
@@ -53,6 +61,7 @@ This is different from Bonita Portal Task List where the user needs to click on 
 === Continuous delivery of projects / Industrialization
 
 [#theme-in-project]
+
 ==== "Theme" projects are now integrated in Bonita project (Subscription only)
 
 From the Studio, the theme can now be created as any other part of a Living Application, from the Development Menu and from the Project Explorer "New" option.
@@ -97,6 +106,7 @@ It offers the same features than the old Portal page:
 Additionally, it offers better validation (checks for any error in the file format with a dedicated error message).
 
 [#new-bonita-layout]
+
 ==== A new Bonita Layout
 
 Created with the UI Designer, it is responsive, it can be customized and added to any living application.
@@ -124,14 +134,14 @@ To use it, it needs to be enabled in the studio Preferences or in the bundle con
 
 A work execution audit mechanism has been introduced. It can be activated to detect when a work takes too much time to be executed or it was _rescheduled_ too many times.
 See xref:work-execution-audit.adoc[Work execution audit page].
-
 [#asynchronous-connector-execution]
+
 ==== Asynchronous connector execution
 
 The Bonita Runtime is now up to 10x more performant in a context of slow connectors, allowing more tasks to be executed and avoiding and SPOC (single point of contention).
 
 * Connectors are executed in an asynchrous manner. In earlier versions each work was waiting for the connector to end before processing other workload. This resulted in degraded performance if few connectors had a long execution time.
-* Worker threads are now released as soon as the execution of the connector is triggered. see xref:connectors-execution.adoc[connector execution page] for more details.
+* Worker threads are now released as soon as the execution of the connector is triggered. see [connector execution page](connectors-execution.md) for more details.
 As a consequence, in a context of connectors taking a lot of time (connecting to slow third party services, high computing, ...) the usual job executions are not blocking and can continue.
 
 ==== Timer execution
@@ -140,8 +150,8 @@ Bugs were fixed to increase stability of the integration with Quartz:
 
 * BS-19239 Exception during Quartz Job execution leaves the associated flownode in WAITING state and the process execution is stopped
 * BR-56 Failure in a cron timer cancels future executions
-A xref:timers-execution.adoc[new page] was added to explain how Timers are executed and how to handle time execution failures.
-Also details were added on how to configure Quartz for timers execution: link:performance-tuning.md#cron[quartz performance tuning]
+A [new page](timers-execution.md) was added to explain how Timers are executed and how to handle time execution failures.
+Also details were added on how to configure Quartz for timers execution: [quartz performance tuning](performance-tuning.md#cron)
 
 ==== Cluster locks
 
@@ -175,17 +185,18 @@ Within Tomcat and WildFly bundles, the License Request Key generator tool has be
 == Technical updates
 
 [#java-11-compliance]
+
 === Java 11 Compliance
 
 Bonita now runs on Java 8 and Java 11. It is still compiled with java 8, but can now run on Java 11. +
-According to that, some libraries and dependencies of the product have been updated: they either presented security issues, or they did not work at runtime. The list can be found <<java-11-lib-update,there>>. +
+According to that, some libraries and dependencies of the product have been updated: they either presented security issues, or they did not work at runtime. The list can be found [there](#java-11-lib-update). +
 The others have been left as they were. +
 Some of those can generate warnings with Java 11, such as "WARNING: Illegal reflective access by [.../]", but this has no consequence on Bonita execution, and they will be updated in the future.
 
-If you are migrating to Bonita 7.9 and plan to run it on Java 11, some of your connectors will have to be migrated. See <<connector-dependency-updates,Connectors dependency updates>> +
+If you are migrating to Bonita 7.9 and plan to run it on Java 11, some of your connectors will have to be migrated. See [Connectors dependency updates](#connector-dependency-updates) +
 Generally speaking, custom code and connectors might require updated versions of libraries used in Bonita. In such cases, those updated versions should be added as scripts/connector dependencies.
 
-+++<a id="rest-api-extension-update">++++++</a>+++
+[#rest-api-extension-update]
 
 ==== REST API extension project update
 
@@ -196,9 +207,24 @@ In order to be compatible with Java 11, you must update the following plug-ins d
 * _maven-compiler-plugin_ dependency must be updated to *3.8.0*
 * _groovy-eclipse-compiler_ dependency must be updated to *3.3.0-01*
  ** You need to add the plugin repository below in your pom.xml
-```+++<pluginRepositories>++++++<pluginRepository>++++++<id>+++bintray+++</id>+++ +++<name>+++Groovy Bintray+++</name>+++ +++<url>+++https://dl.bintray.com/groovy/maven+++</url>+++ +++<releases>++++++<updatePolicy>+++never+++</updatePolicy>++++++</releases>+++ +++<snapshots>++++++<enabled>+++false+++</enabled>++++++</snapshots>++++++</pluginRepository>+++ \...+++</pluginRepositories>+++
 
-```
+[source,xml]
+----
+ <pluginRepositories>
+  <pluginRepository>
+   <id>bintray</id>
+   <name>Groovy Bintray</name>
+   <url>https://dl.bintray.com/groovy/maven</url>
+   <releases>
+    <updatePolicy>never</updatePolicy>
+   </releases>
+   <snapshots>
+    <enabled>false</enabled>
+   </snapshots>
+  </pluginRepository>
+  ...
+ </pluginRepositories>
+----
 
 ==== Bonita Studio
 
@@ -214,7 +240,7 @@ Tomcat has been updated to the version 8.5.40.
 
 ==== Bonita dependency updates
 
-+++<a id="java-11-lib-update">++++++</a>+++
+[#java-11-lib-update]
 
 The following Bonita dependencies have been upgraded to improve the Java 11 support
 
@@ -224,7 +250,7 @@ The following Bonita dependencies have been upgraded to improve the Java 11 supp
 
 ==== Connectors dependency updates
 
-+++<a id="connector-dependency-updates">++++++</a>+++
+[#connector-dependency-updates]
 
 === Migration
 
@@ -237,7 +263,7 @@ The step works at best effort:
 * Beware that if one of these connectors' removed dependencies was used in one your scripts, it will still be removed/updated, and therefore your scripts might not work anymore after migration. The full list of updated and deleted dependencies can be found below.
 
 From Bonita 7.9+, the supported version of Oracle database is *12c (12.2.x.y)*
-To migrate to Bonita 7.9+ from an earlier version than Oracle 12c (12.2.x.y), see link:migrate-from-an-earlier-version-of-bonita-bpm.md#oracle12[Migrating to Bonita 7.9+ using Oracle].
+To migrate to Bonita 7.9+ from an earlier version than Oracle 12c (12.2.x.y), see [Migrating to Bonita 7.9+ using Oracle](migrate-from-an-earlier-version-of-bonita-bpm.md#oracle12).
 
 ==== WebService connector
 
@@ -308,7 +334,7 @@ In Bonita 7.9.0, we replaced the JTA transaction manager used to handle XA trans
 This change should not impact the way to use Bonita.
 However, tuning Bonita transaction configuration is now a little different. If you wish to change the default transaction timeout,
 it is now done by changing the `defaultTimeout` property in file `server/conf/jbossts-properties.xml` instead of file `server/conf/bitronix-config.properties`
-More configuration info can be found xref:tomcat-bundle.adoc[here].
+More configuration info can be found [here](tomcat-bundle.md).
 
 === Databases supported
 
@@ -316,12 +342,12 @@ More configuration info can be found xref:tomcat-bundle.adoc[here].
 
 From Bonita 7.9, the supported version of Oracle database is *12c (12.2.x.y)*
 
-To migrate to Bonita 7.9+ from an earlier version, you need to run the xref:migrate-from-an-earlier-version-of-bonita-bpm.adoc[Bonita Migration Tool] once with the version 7.8.4 target, so that the database and configuration is updated. Then you must upgrade your Oracle database to version 12c (12.2.x.y). Then run the migration tool again to target version 7.9+. See link:migrate-from-an-earlier-version-of-bonita-bpm.md#oracle12[Migrating to Bonita 7.9+ using Oracle] for more details.
+To migrate to Bonita 7.9+ from an earlier version, you need to run the [Bonita Migration Tool](migrate-from-an-earlier-version-of-bonita-bpm.md) once with the version 7.8.4 target, so that the database and configuration is updated. Then you must upgrade your Oracle database to version 12c (12.2.x.y). Then run the migration tool again to target version 7.9+. See [Migrating to Bonita 7.9+ using Oracle](migrate-from-an-earlier-version-of-bonita-bpm.md#oracle12) for more details.
 
 ==== PostgreSQL
 
 From Bonita 7.9, the supported version of PostgreSQL database is *11.2*. +
-Some link:performance-tuning.md#postgresql-performance-tuning[PostgreSQL-specific tuning] recommendations are provided for
+Some xref:performance-tuning.adoc]#postgresql-performance-tuning[PostgreSQL-specific tuning] recommendations are provided for
 improved database performance.
 
 ==== Microsoft SQL Server
@@ -332,14 +358,16 @@ Microsoft SQL Server *open-source drivers* are now provided by Bonita. There is 
 
 From Bonita 7.9, the supported version of MySQL database is *8.0 (8.0.x)*
 
-To migrate to Bonita 7.9+ from an earlier version, you need to run the xref:migrate-from-an-earlier-version-of-bonita-bpm.adoc[Bonita Migration Tool], so that the database and configuration is updated. Then you must upgrade MySQL to version 8.0. See link:migrate-from-an-earlier-version-of-bonita-bpm.md#mysql8[Migrating to Bonita 7.9+ using MySQL] for more details.
+To migrate to Bonita 7.9+ from an earlier version, you need to run the [Bonita Migration Tool](migrate-from-an-earlier-version-of-bonita-bpm.md), so that the database and configuration is updated. Then you must upgrade MySQL to version 8.0. See [Migrating to Bonita 7.9+ using MySQL](migrate-from-an-earlier-version-of-bonita-bpm.md#mysql8) for more details.
 
-NOTE:
-*Note:* Up to 7.9 version Bonita requires MySQL to use link:database-configuration.md#utf8_requirement[UTF-8 encoding], which is an alias for 'utf8mb3', now deprecated by MySQL.
-The https://dev.mysql.com/doc/refman/8.0/en/charset-unicode-utf8.html[official MySQL recommendation is to use 'utf8mb4']. 'utf8mb4' is supported on Bonita starting from version 7.10.
+[NOTE]
+====
 
+Up to 7.9 version Bonita requires MySQL to use [UTF-8 encoding](database-configuration.md#utf8_requirement), which is an alias for 'utf8mb3', now deprecated by MySQL.
+The link:http ://dev.mysql.com/doc/refman/8.0/en/charset-unicode-utf8.html[official MySQL recommendation is to use 'utf8mb4']. 'utf8mb4' is supported on Bonita starting from version 7.10.
+====
 
-+++<a id="other-dependencies">++++++</a>+++
+[#other-dependencies]
 
 === Supported Operating Systems
 
@@ -355,7 +383,7 @@ This can be done in two different ways:
 * using standard Spring Boot starter integration
 * programmatically, calling Bonita Engine code through Java, Kotlin, Groovy, or any other language running on JVM
 
-For more information, see xref:embed-engine.adoc[how to embed Bonita Engine].
+For more information, see [how to embed Bonita Engine](embed-engine.md).
 
 WARNING: This is a Lab feature and is subject to change without warning in any version. It is not recommended for production.
 
@@ -375,7 +403,7 @@ The Wildfly bundle was mainly used with the SQL server database. The Tomcat bund
 
 === Removals
 
-+++<a id="32bits-installers">++++++</a>+++
+[#32bits-installers]
 
 ==== 32 bits installers
 
@@ -388,7 +416,7 @@ The SAP JCO2 connector is no longer available. SAP JCO3 connector is more recent
 ==== Deploy zip
 
 The BonitaSubscription-x.y.z-deploy.zip is no longer provided starting from Bonita 7.9.
-Please use the Tomcat bundle instead, or see the xref:deploy-bundle.adoc[Custom Deployment] page for more specific needs.
+Please use the Tomcat bundle instead, or see the [Custom Deployment](deploy-bundle.md) page for more specific needs.
 
 ==== Dependency libraries
 

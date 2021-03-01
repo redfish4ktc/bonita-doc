@@ -1,4 +1,5 @@
 = Application descriptor
+:description: Define your Bonita application descriptor.
 
 Define your Bonita application descriptor.
 
@@ -37,9 +38,11 @@ For example, the four leave management applications for employees, managers, Hum
 
 == Create and build an Application Descriptor
 
-NOTE:
-*Note:* All Bonita editions come with an .xml editor for this feature. Only Enterprise, Performance and Efficiency editions also come with a graphical UI.
+[NOTE]
+====
 
+All Bonita editions come with an .xml editor for this feature. Only Enterprise, Performance and Efficiency editions also come with a graphical UI.
+====
 
 From Bonita Studio, use the *new* button in the Studio coolbar or click on *Development* \-> *Application Descriptor* \-> *New...* +
 It will create an empty application file with a default name and open an editor. You can *rename* this application file from the project explorer, the graphical UI or the menu *Open*.
@@ -51,7 +54,7 @@ A toolbar is embedded to the editor, use it to:
 
 * *Add* an application descriptor to this application file
 * *Deploy* this application file (i.e all the application descriptors in this file). +
- ⚠  For _development_ purposes, it also deploys their referenced pages and layout, but if those resources use REST API Extensions, you have to deploy those manually. In _production_ environment, you still need to deploy pages, layouts and REST API Extensions manually *before* to deploy the application descriptor.
+⚠  For _development_ purposes, it also deploys their referenced pages and layout, but if those resources use REST API Extensions, you have to deploy those manually. In _production_ environment, you still need to deploy pages, layouts and REST API Extensions manually *before* to deploy the application descriptor.
 * *Rename* this application file
 * *Export* this application file (download the .xml)
 * *Delete* this application file from your current workspace

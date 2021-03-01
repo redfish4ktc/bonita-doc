@@ -1,4 +1,5 @@
 = Overview of the generic web service connector
+:description: The Bonita Studio includes a generic web service connector that leverages SOAP 1.2 protocol.
 
 The Bonita Studio includes a generic web service connector that leverages SOAP 1.2 protocol.
 
@@ -73,9 +74,13 @@ When you configure a process that uses this connector, you must xref:manage-jar-
 
 == Output
 
-| Output type  | Description  | Type  |
-| -------- | -------- | ---- |
-| Response  | Result of execution  | Source  |
+|===
+| Output type | Description | Type
+
+| Response
+| Result of execution
+| Source
+|===
 
 == Result
 

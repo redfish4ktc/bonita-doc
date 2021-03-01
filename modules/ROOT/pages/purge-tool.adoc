@@ -1,14 +1,17 @@
 = Purge Tool
+:description: Bonita Purge Tool provides the capability to purge finished (archived) process instances from Bonita Runtime environment.
 
 Bonita Purge Tool provides the capability to purge finished (archived) process instances from Bonita Runtime environment.
 
 By default, all archives are preserved forever in Bonita runtime, but if your functional context allows you to remove old unused process instances
 (for example, if you only need to keep a history of last 6 months), use this tool to clean up your Bonita database.
 
-NOTE:
-*Note:* For Enterprise, Performance, Efficiency, and Teamwork editions only. +
-This tool is not available publicly. Use https://customer.bonitasoft.com/download/request[Bonita Customer Portal] to download it.
+[NOTE]
+====
 
+For Enterprise, Performance, Efficiency, and Teamwork editions only. +
+This tool is not available publicly. Use https://customer.bonitasoft.com/download/request[Bonita Customer Portal] to download it.
+====
 
 == Pre-requisites
 
@@ -68,13 +71,16 @@ both `process_instance` and `arch_process_instance` tables while we avoid removi
 For example, once all `arch_process_instance` rows matching the conditions (processDefinitionId and timestamp) have been deleted
 and when the tool deletes the `arch_data_instance` rows, the tool only needs to query the `arch_process_instance` table.
 
- DELETE FROM ARCH_DATA_INSTANCE a WHERE
- a.CONTAINERTYPE = 'PROCESS_INSTANCE'
- AND a.tenantId = 1
- AND NOT EXISTS (
-     SELECT id FROM ARCH_PROCESS_INSTANCE b
-     WHERE a.CONTAINERID = b.SOURCEOBJECTID
-     AND b.tenantId = 1);
+[source,sql]
+----
+DELETE FROM ARCH_DATA_INSTANCE a WHERE
+a.CONTAINERTYPE = 'PROCESS_INSTANCE'
+AND a.tenantId = 1
+AND NOT EXISTS (
+    SELECT id FROM ARCH_PROCESS_INSTANCE b
+    WHERE a.CONTAINERID = b.SOURCEOBJECTID
+    AND b.tenantId = 1);
+----
 
 This strategy allows this tool to be more robust, it can be stopped at any given time, relaunching it will continue the deletion from where it stopped.
 However, this means that the time required to execute a purge will be the same when deleting a few elements or a lot of elements.

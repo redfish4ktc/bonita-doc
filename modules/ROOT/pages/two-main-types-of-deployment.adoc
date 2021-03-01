@@ -1,4 +1,5 @@
 = Two main types of Bonita deployment
+:description: Discover the two main types of deployments of a Bonita Platform.
 
 Discover the two main types of deployments of a Bonita Platform.
 
@@ -8,9 +9,16 @@ There are two main types of deployment
 using a Bonita bundle
 * Bonita Portal and Bonita Engine running on two different application servers
 
+[WARNING]
+====
+
+The deployment of Bonita Portal and Bonita Engine running on two different application servers is *deprecated*.
+It will not be supported starting from *Bonita version 2021.2*. +
+====
+
 == Foreword
 
-It is highly recommended to use the provided Tomcat or WildFly bundles in order to carry out these deployments
+It is highly recommended using the provided Tomcat or WildFly bundles in order to carry out these deployments
 successfully.
 
 == Bonita Portal + Bonita Engine on the same application server
@@ -78,7 +86,7 @@ In this deployment, the Engine Client used by the Bonita Portal is configured by
 * set the url to the Engine
 * use username and password that match credentials configured for the platform admin (see the xref:tomcat-bundle.adoc[Tomcat]
 or the xref:wildfly-bundle.adoc[Wildfly] bundle configuration page)
-* for more details, please read link:configure-client-of-bonita-bpm-engine.md#client_config[configuring the connection to a remote engine]
+* for more details, please read xref:configure-client-of-bonita-bpm-engine.adoc]#client_config[configuring the connection to a remote engine]
 
 In addition, all database datasources are disabled
 
@@ -93,6 +101,7 @@ We suggest to define a `ENGINE_OPTS` variable and add its content to the `CATALI
 
 On Linux (setenv.sh)
 
+[source,bash]
 ----
 ENGINE_OPTS="-Dorg.bonitasoft.engine.api-type=HTTP -Dorg.bonitasoft.engine.api-type.server.url=http://localhost:8080"
 ENGINE_OPTS="${ENGINE_OPTS} -Dorg.bonitasoft.engine.api-type.application.name=bonita -Dorg.bonitasoft.engine.api-type.connections.max=20"
@@ -104,6 +113,7 @@ export CATALINA_OPTS
 
 On Windows (setenv.bat)
 
+[source,bash]
 ----
 set ENGINE_OPTS="-Dorg.bonitasoft.engine.api-type=HTTP" "-Dorg.bonitasoft.engine.api-type.server.url=http://localhost:8080"
 set ENGINE_OPTS=%ENGINE_OPTS% "-Dorg.bonitasoft.engine.api-type.application.name=bonita -Dorg.bonitasoft.engine.api-type.connections.max=20"
@@ -195,9 +205,11 @@ Apply the same changes as for the Tomcat bundle to disable Engine resources
 
 === Accessible through RMI (EJB3) - Deprecated Solution
 
- danger
-EJB communication protocol is removed in 7.10.
+[IMPORTANT]
+====
 
+EJB communication protocol is removed in 7.10.
+====
 
 image::images/images-6_0/poss_deploy3.png[deploy3]
 

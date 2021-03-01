@@ -1,4 +1,6 @@
 = Profile Editor
+:description: :experimental:
+
 :experimental:
 
 Build a profile to customize the user's environment, define page listing and who can access it.
@@ -8,8 +10,9 @@ Build a profile to customize the user's environment, define page listing and who
 === Fonctional
 
 Profiles work as permissions to give access to:
-+- xref:applications.adoc[Living Applications]
-+- Navigation (menus) of Bonita Portal
+
+* xref:applications.adoc[Living Applications]
+* Navigation (menus) of Bonita Portal
 
 A profile is made of a name, a description, and a mapping with the organization entities.
 When the profile is used to access a Portal menu, Portal menu entries must be defined in the profile too. +
@@ -53,9 +56,11 @@ Therefore, you could have a "profiles_dev.xml", a "profiles_UAT.xml", and a "pro
 
 == Create and edit a profile
 
-NOTE:
-*Note:* All Bonita subscription editions come with an .xml editor for this feature. Only Enterprise, Performance and Efficiency editions also come with a graphical UI.
+[NOTE]
+====
 
+All Bonita subscription editions come with an .xml editor for this feature. Only Enterprise, Performance and Efficiency editions also come with a graphical UI.
+====
 
 From Bonita Studio, use the *new* button in the Studio coolbar or click on *Organization* \-> *Profile* \-> *New...*
 It will create an empty file of profiles with a default name and open an editor. You can *rename* this file from the graphical UI, the project explorer or the menu *Open*.
@@ -67,7 +72,7 @@ A toolbar is embedded to the editor, use it to:
 * *Add* a profile to this file of profiles: you can add a new profile or duplicate an existing one from your current project
 * *Save* this file of profiles *As* an other file of profiles (useful to duplicate the whole file)
 * *Deploy* this file of profiles (i.e all the profiles in this file)
- ⚠  For _development_ purposes, it also deploys their referenced pages used as portal menu entries, but if those resources use REST API Extensions, you have to deploy those manually. In _production_ environment, you still need to import pages, and REST API Extensions manually *before* to import the file of profiles.
+⚠  For _development_ purposes, it also deploys their referenced pages used as portal menu entries, but if those resources use REST API Extensions, you have to deploy those manually. In _production_ environment, you still need to import pages, and REST API Extensions manually *before* to import the file of profiles.
 * *Rename* this file of profiles
 * *Export* this file of profiles (download the .xml)
 * *Delete* this file of profiles from your current workspace

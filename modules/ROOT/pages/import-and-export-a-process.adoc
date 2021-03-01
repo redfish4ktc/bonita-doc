@@ -1,4 +1,5 @@
 = Import and export a process
+:description: How to import and export processes in Bonita Studio.
 
 How to import and export processes in Bonita Studio.
 
@@ -7,15 +8,18 @@ How to import and export processes in Bonita Studio.
 To import a diagram:
 
 * From a .bos archive (a diagram from another Bonita studio)
- .. Choose *_Import_* \-> *_BOS archive_* from the *_Diagram_* menu or click *_Import_* in the Cool bar.
- .. Specify the archive to be imported.
- .. Manage eventual conflicts
- .. Click *_Import_*, the .bos archive is imported, a new diagram is created.
+
+. Choose *_Import_* \-> *_BOS archive_* from the *_Diagram_* menu or click *_Import_* in the Cool bar.
+. Specify the archive to be imported.
+. Manage eventual conflicts
+. Click *_Import_*, the .bos archive is imported, a new diagram is created.
+
 * From an other format
- .. Choose *_Import_* \-> *_other_* from the *_Diagram_* menu.
- .. Select the input format.
- .. Specify the file to be imported.
- .. Click *_Import_*. A new diagram is created.
+
+. Choose *_Import_* \-> *_other_* from the *_Diagram_* menu.
+. Select the input format.
+. Specify the file to be imported.
+. Click *_Import_*. A new diagram is created.
 
 You can import diagrams that were exported from the following tools:
 

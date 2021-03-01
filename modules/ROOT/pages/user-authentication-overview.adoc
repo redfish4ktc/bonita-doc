@@ -1,4 +1,5 @@
 = User authentication overview
+:description: Learn how user authentication is achieved in Bonita. This page can be helpful to troubleshoot and debug authentication issues.
 
 Learn how user authentication is achieved in Bonita. This page can be helpful to troubleshoot and debug authentication issues.
 
@@ -94,7 +95,7 @@ Two type of session are involved when using Bonita Portal:
 * The HTTP session
 * The Bonita Engine session
 
-The sessoin timeout values for these two sessions should be set to the same value.
+The session timeout values for these two sessions should be set to the same value.
 
 *The HTTP session.*
 

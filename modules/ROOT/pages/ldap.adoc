@@ -1,4 +1,5 @@
 = LDAP Connector
+:description: The LDAP connector allows a process to retrieve data from an LDAP server by running a query.
 
 The LDAP connector allows a process to retrieve data from an LDAP server by running a query.
 
@@ -7,10 +8,12 @@ If you are looking for LDAP Authentication please go to: https://documentation.b
 Configuring an LDAP connector with the wizard:
 
 . In the *General* screen:
- ** Enter a name and description for the connector.
- ** Specify whether the connector runs at the start or the end of the step.
- ** Specify the behavior if the connector fails.
- ** Click *_Next_*.
+
+* Enter a name and description for the connector.
+* Specify whether the connector runs at the start or the end of the step.
+* Specify the behavior if the connector fails.
+* Click *_Next_*.
+
 . Specify the LDAP server information:
 
 |===
