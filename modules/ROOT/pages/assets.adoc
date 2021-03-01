@@ -58,7 +58,7 @@ For example, you can create a file mycss.css with this content:
 . Drag a widget text onto the whiteboard.
 . Select this widget.
 . In the property panel add your CSS class
-
++
 image::images/images-6_0/cssasset.png[CSS asset]
 
 . Click on the preview button. You will see white text on a gray background.
